@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="ass1" default="dist" basedir=".">
+    <description>Builds the project ass1.</description>
+    <!-- set global properties for this build -->
+    <property name="src" location="."/>
+    <property name="build" location="build"/>
+    <property name="dist"  location="dist"/>
+    <property name="distlib"  location="dist/lib"/>
+    <property name="mainclass" value="Main"/>
+    
+    <path id="compile.classpath">
+        <fileset dir=".">
+            <include name="*.jar" />
+        </fileset>
+    </path>
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
+
+    <target name="compile" depends="init" description="compile the source " >
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac includeantruntime="false" srcdir="${src}" destdir="${build}">
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="dist" depends="clean,compile" description="generate the distribution" >
+        <mkdir dir="${dist}" />
+
+        <property name="finaljar" value="${dist}/Assignment-1-karl-kirch-${DSTAMP}.jar" />
+        <manifestclasspath property="jar.classpath" jarfile="${finaljar}">
+            <classpath refid="compile.classpath"/>
+        </manifestclasspath>
+
+        <jar destfile="${finaljar}" basedir="${build}">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Main-Class" value="${mainclass}"/>
+                <attribute name="Class-Path" value="${jar.classpath}"/>
+            </manifest>
+            <fileset dir="." includes="*.jar" />
+        </jar>
+    </target>
+
+    <target name="clean"
+            description="clean up" >
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+</project>
