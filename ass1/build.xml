@@ -31,12 +31,14 @@
 
     <target name="dist" depends="clean,compile" description="generate the distribution" >
         <mkdir dir="${dist}" />
-
         <property name="finaljar" value="${dist}/Assignment-1-karl-kirch-${DSTAMP}.jar" />
-        <manifestclasspath property="jar.classpath" jarfile="${finaljar}">
-            <classpath refid="compile.classpath"/>
-        </manifestclasspath>
-
+        
+        <pathconvert property="jar.classpath">
+          <path>
+            <fileset dir="." includes="*.jar" />
+          </path>
+        </pathconvert>
+        
         <jar destfile="${finaljar}" basedir="${build}">
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
