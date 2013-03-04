@@ -25,7 +25,8 @@ void abort_compile(const char * error)
 	exit(EXIT_FAILURE);
 }
 
-void unexpected_token_received(const char * expected_token, const char * unexpected_token) {
+void unexpected_token_received(const char * expected_token, const char * unexpected_token) 
+{
 	//this can buffer overflow, but yeah, not caring at this point....
 	char msg[1024];
 	strcpy(msg, expected_token);
