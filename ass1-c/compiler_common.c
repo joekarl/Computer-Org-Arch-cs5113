@@ -8,6 +8,11 @@
 const char TAB_CHAR = '\t';
 char g_current_char = '0';
 
+char current_char() 
+{
+	return g_current_char;
+}
+
 void read_char() 
 {
 	g_current_char = getchar();
