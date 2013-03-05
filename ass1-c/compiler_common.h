@@ -14,10 +14,6 @@ void unexpected_token_received(const char * expected_token, const char * unexpec
 
 void match_token(const char c);
 
-bool is_letter(const char c);
-
-bool is_digit(const char c);
-
 char get_identifier();
 
 char get_number();

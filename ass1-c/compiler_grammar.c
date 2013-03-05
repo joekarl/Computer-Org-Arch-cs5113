@@ -72,19 +72,26 @@ BNF_leaf_node * COMP_Divide()
 
 BNF_leaf_node * COMP_Factor()
 {
+	char c = current_char();
 	BNF_leaf_node * node = NULL;
-	if (current_char() == '(')
+	if (c == '(')
 	{
 		match_token('(');
 		node = COMP_Expression();
 		match_token(')');
 	}
+	else if (isalpha(c))
+	{
+		char ident = get_identifier();
+		char * value = create_string_from_char(ident);
+
+		node = bnf_create(NULL, NULL, NULL, value);
+	}
 	else
 	{
 		//get term
 		char term = get_number();
-		char * value = (char *) calloc(2, sizeof(char));
-		value[0] = term;
+		char * value = create_string_from_char(term);
 
 		node = bnf_create(NULL, NULL, NULL, value);
 	}

@@ -60,19 +60,9 @@ void match_token(const char c)
 	}
 }
 
-bool is_letter(const char c)
-{
-	return (c >= 'a' && c <= 'Z');
-}
-
-bool is_digit(const char c)
-{
-	return (c >= '0' && c <= '9');
-}
-
 char get_identifier()
 {
-	if (!is_letter(g_current_char))
+	if (!isalpha(g_current_char))
 	{
 		char unexpected_token[2];
 		unexpected_token[0] = g_current_char;
@@ -83,13 +73,13 @@ char get_identifier()
 	{
 		char rtn = g_current_char;
 		read_char();
-		return toupper(rtn);
+		return rtn;
 	}
 }
 
 char get_number()
 {
-	if (!is_digit(g_current_char))
+	if (!isdigit(g_current_char))
 	{
 		char unexpected_token[2];
 		unexpected_token[0] = g_current_char;
@@ -100,7 +90,7 @@ char get_number()
 	{
 		char rtn = g_current_char;
 		read_char();
-		return toupper(rtn);
+		return rtn;
 	}
 }
 
