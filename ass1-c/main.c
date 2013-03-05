@@ -9,13 +9,17 @@ int main(int argc, char ** argv)
 
 	printf("> ");
 	read_char();
-	BNF_leaf_node * root = COMP_Expression();
 
-    print_bnf_tree(root);
+    while(current_char() != '^m')
+    {
+        BNF_leaf_node * root = COMP_Expression();
 
-    bnf_free(root);
+        print_bnf_tree(root);
 
-    println("");
+        bnf_free(root);
+
+        println("");
+    }
 
 	return 0;
 }
