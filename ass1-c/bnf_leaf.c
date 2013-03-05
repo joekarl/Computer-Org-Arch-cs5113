@@ -2,9 +2,9 @@
 #include "compiler_common.h"
 #include <stdlib.h>
 
-BNF_leaf_node * bnf_create(const BNF_leaf_node * left,
-    const BNF_leaf_node * right,
-    const char * operator, const char * value)
+BNF_leaf_node * bnf_create(BNF_leaf_node * left,
+    BNF_leaf_node * right,
+    char * operator, char * value)
 {
     BNF_leaf_node * node = (BNF_leaf_node *) malloc(sizeof(BNF_leaf_node));
     node->left = left;
@@ -33,7 +33,7 @@ void print_bnf_tree(const BNF_leaf_node * node)
         return;
     }
 
-    if (node->left && node->right)
+    if (!is_factor(node))
     {
         print("(");
 
@@ -59,4 +59,9 @@ void print_bnf_tree(const BNF_leaf_node * node)
         print(node->value);
     }
 
+}
+
+bool is_factor(const BNF_leaf_node * node)
+{
+    return (!node->left && !node->right);
 }

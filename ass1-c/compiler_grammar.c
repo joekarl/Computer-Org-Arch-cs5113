@@ -57,12 +57,23 @@ BNF_leaf_node * COMP_Divide()
 
 BNF_leaf_node * COMP_Factor()
 {
-	//get term
-	char term = get_number();
-	char * value = (char *) calloc(2, sizeof(char));
-	value[0] = term;
+	BNF_leaf_node * node = NULL;
+	if (current_char() == '(')
+	{
+		match_token('(');
+		node = COMP_Expression();
+		match_token(')');
+	}
+	else
+	{
+		//get term
+		char term = get_number();
+		char * value = (char *) calloc(2, sizeof(char));
+		value[0] = term;
 
-	BNF_leaf_node * node = bnf_create(NULL, NULL, NULL, value);
+		node = bnf_create(NULL, NULL, NULL, value);
+	}
+	
 	return node;
 }
 
