@@ -5,8 +5,23 @@
 
 BNF_leaf_node * COMP_Expression()
 {
-	//read term
-	BNF_leaf_node * root = bnf_create(COMP_Term(), NULL, NULL, NULL);
+	char c = current_char();
+	BNF_leaf_node * root = NULL;
+
+	if (c == '+' || c == '-')
+	{
+		BNF_leaf_node * zero_node = bnf_create(NULL, NULL, NULL, 
+			create_string_from_char('0'));
+		read_char(); //advance cursor to next char
+		BNF_leaf_node * init_node = bnf_create(zero_node, COMP_Term(),
+			create_string_from_char(c), NULL);
+		return init_node;
+	}
+	else
+	{
+		//read term
+		root = bnf_create(COMP_Term(), NULL, NULL, NULL);
+	}
 
 	char op = current_char();
 	while(op == '+' || op == '-')
