@@ -27,7 +27,7 @@ void print_bnf_tree(const BNF_leaf_node * node)
         return;
     }
 
-    if (!is_factor(node))
+    if (node->left && node->right)
     {
         print("(");
 
@@ -48,14 +48,25 @@ void print_bnf_tree(const BNF_leaf_node * node)
 
         print(")");
     }
-    else
+    else if (is_factor(node))
     {
         print(node->value);
+    }
+    else if (is_function(node))
+    {
+        print("CALL(");
+        print(node->function);
+        print(")");
     }
 
 }
 
 bool is_factor(const BNF_leaf_node * node)
 {
-    return (!node->left && !node->right);
+    return (!node->left && !node->right && node->value);
+}
+
+bool is_function(const BNF_leaf_node * node)
+{
+    return (!node->left && !node->right && node->function);
 }

@@ -19,4 +19,6 @@ void print_bnf_tree(const BNF_leaf_node * node);
 
 bool is_factor(const BNF_leaf_node * node);
 
+bool is_function(const BNF_leaf_node * node);
+
 #endif
