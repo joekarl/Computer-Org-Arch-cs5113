@@ -2,15 +2,9 @@
 #include "compiler_common.h"
 #include <stdlib.h>
 
-BNF_leaf_node * bnf_create(BNF_leaf_node * left,
-    BNF_leaf_node * right,
-    char * operator, char * value)
+BNF_leaf_node * bnf_create()
 {
-    BNF_leaf_node * node = (BNF_leaf_node *) malloc(sizeof(BNF_leaf_node));
-    node->left = left;
-    node->right = right;
-    node->operator = operator;
-    node->value = value;
+    BNF_leaf_node * node = (BNF_leaf_node *) calloc(1, sizeof(BNF_leaf_node));
     return node;
 }
 

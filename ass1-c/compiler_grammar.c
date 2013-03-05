@@ -10,17 +10,23 @@ BNF_leaf_node * COMP_Expression()
 
 	if (c == '+' || c == '-')
 	{
-		BNF_leaf_node * zero_node = bnf_create(NULL, NULL, NULL, 
-			create_string_from_char('0'));
+		BNF_leaf_node * zero_node = bnf_create();
+		zero_node->value = create_string_from_char('0');
+
 		read_char(); //advance cursor to next char
-		BNF_leaf_node * init_node = bnf_create(zero_node, COMP_Term(),
-			create_string_from_char(c), NULL);
+
+		BNF_leaf_node * init_node = bnf_create();
+		init_node->left = zero_node;
+		init_node->right = COMP_Term();
+		init_node->operator = create_string_from_char(c);
+
 		return init_node;
 	}
 	else
 	{
 		//read term
-		root = bnf_create(COMP_Term(), NULL, NULL, NULL);
+		root = bnf_create();
+		root->left = COMP_Term();
 	}
 
 	char op = current_char();
@@ -39,11 +45,33 @@ BNF_leaf_node * COMP_Expression()
 				unexpected_token_received("+ or -", root->operator);
 				break;
 		}
-		root = bnf_create(root, NULL, NULL, NULL);
+		BNF_leaf_node *temp = root;
+		root = bnf_create();
+		root->left = temp;
 		op = current_char();
 	}
 
 	return root->right ? root : root->left;
+}
+
+BNF_leaf_node * COMP_Identifier()
+{
+	BNF_leaf_node * node = bnf_create();
+	char ident = get_identifier();
+	
+	//check if function name
+	if (current_char() == '(')
+	{
+		match_token('(');
+		match_token(')');
+		node->function = create_string_from_char(ident);
+	}
+	else
+	{
+		node->value = create_string_from_char(ident);
+	}
+	
+	return node;
 }
 
 BNF_leaf_node * COMP_Add()
@@ -82,18 +110,15 @@ BNF_leaf_node * COMP_Factor()
 	}
 	else if (isalpha(c))
 	{
-		char ident = get_identifier();
-		char * value = create_string_from_char(ident);
-
-		node = bnf_create(NULL, NULL, NULL, value);
+		node = COMP_Identifier();
 	}
 	else
 	{
 		//get term
 		char term = get_number();
-		char * value = create_string_from_char(term);
 
-		node = bnf_create(NULL, NULL, NULL, value);
+		node = bnf_create();
+		node->value = create_string_from_char(term);
 	}
 	
 	return node;
@@ -101,7 +126,8 @@ BNF_leaf_node * COMP_Factor()
 
 BNF_leaf_node * COMP_Term()
 {
-	BNF_leaf_node * root = bnf_create(COMP_Factor(), NULL, NULL, NULL);
+	BNF_leaf_node * root = bnf_create();
+	root->left = COMP_Factor();
 
 	char op = current_char();
 	while(op == '*' || op == '/')
@@ -119,7 +145,10 @@ BNF_leaf_node * COMP_Term()
 				unexpected_token_received("* or /", root->operator);
 				break;
 		}
-		root = bnf_create(root, NULL, NULL, NULL);
+		
+		BNF_leaf_node *temp = root;
+		root = bnf_create();
+		root->left = temp;
 		op = current_char();
 	}
 

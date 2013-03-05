@@ -8,11 +8,10 @@ typedef struct bnf_leaf_struct {
     struct bnf_leaf_struct * right;
     char * operator;
     char * value;
+    char * function;
 } BNF_leaf_node;
 
-BNF_leaf_node * bnf_create(BNF_leaf_node * left,
-    BNF_leaf_node * right,
-    char * operator, char * value);
+BNF_leaf_node * bnf_create();
 
 void bnf_free(BNF_leaf_node * node);
 
