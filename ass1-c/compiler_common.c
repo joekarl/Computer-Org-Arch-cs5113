@@ -106,7 +106,7 @@ char get_number()
 
 void print(const char * str)
 {
-	printf("%c%s", TAB_CHAR, str);
+	printf("%s", str);
 }
 
 void println(const char * str)
@@ -115,5 +115,10 @@ void println(const char * str)
 	printf("\n");
 }
 
-
+char * create_string_from_char(const char c)
+{
+	char * string = (char *) calloc(2, sizeof(char));
+	string[0] = c;
+	return string;
+}
 

@@ -1,6 +1,7 @@
 #ifndef COMPILER_COMMON_H_
 #define COMPILER_COMMON_H_
 
+#include "bnf_leaf.h"
 #include <stdbool.h>
 
 void read_char();
@@ -24,5 +25,7 @@ char get_number();
 void print(const char * str);
 
 void println(const char * str);
+
+char * create_string_from_char(const char c);
 
 #endif
