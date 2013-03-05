@@ -11,5 +11,6 @@ BNF_leaf_node * COMP_Factor();
 BNF_leaf_node * COMP_Multiply();
 BNF_leaf_node * COMP_Divide();
 BNF_leaf_node * COMP_Identifier();
+BNF_leaf_node * COMP_Assignment();
 
 #endif

@@ -51,7 +51,17 @@ BNF_leaf_node * COMP_Expression()
 		op = current_char();
 	}
 
-	return root->right ? root : root->left;
+	if (root->right)
+	{
+		return root;
+	}
+	else
+	{
+		BNF_leaf_node *rtn = root->left;
+		root->left = NULL;
+		bnf_free(root);
+		return rtn;
+	}
 }
 
 BNF_leaf_node * COMP_Identifier()
@@ -71,6 +81,17 @@ BNF_leaf_node * COMP_Identifier()
 		node->value = create_string_from_char(ident);
 	}
 	
+	return node;
+}
+
+BNF_leaf_node * COMP_Assignment()
+{
+	BNF_leaf_node * node = bnf_create();
+	char ident = get_identifier();
+	match_token('=');
+	BNF_leaf_node * expression = COMP_Expression();
+	node->identifier = create_string_from_char(ident);
+	node->assignment_expression = expression;
 	return node;
 }
 
@@ -152,6 +173,15 @@ BNF_leaf_node * COMP_Term()
 		op = current_char();
 	}
 
-
-	return root->right ? root : root->left;
+	if (root->right)
+	{
+		return root;
+	}
+	else
+	{
+		BNF_leaf_node *rtn = root->left;
+		root->left = NULL;
+		bnf_free(root);
+		return rtn;
+	}
 }

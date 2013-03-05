@@ -16,6 +16,9 @@ void bnf_free(BNF_leaf_node * node)
         bnf_free(node->right);
         free(node->operator);
         free(node->value);
+        free(node->function);
+        free(node->identifier);
+        bnf_free(node->assignment_expression);
     }
     free(node);
 }
@@ -57,6 +60,12 @@ void print_bnf_tree(const BNF_leaf_node * node)
         print("CALL(");
         print(node->function);
         print(")");
+    } 
+    else if (is_assignment)
+    {
+        print(node->identifier);
+        print(" = ");
+        print_bnf_tree(node->assignment_expression);
     }
 
 }
@@ -69,4 +78,10 @@ bool is_factor(const BNF_leaf_node * node)
 bool is_function(const BNF_leaf_node * node)
 {
     return (!node->left && !node->right && node->function);
+}
+
+bool is_assignment(const BNF_leaf_node * node)
+{
+    return (!node->left && !node->right 
+        && node->identifier && node->assignment_expression);
 }
