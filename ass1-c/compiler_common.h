@@ -24,4 +24,6 @@ void println(const char * str);
 
 char * create_string_from_char(const char c);
 
+void skip_white_space();
+
 #endif

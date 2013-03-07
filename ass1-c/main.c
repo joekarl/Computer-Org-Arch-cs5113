@@ -9,6 +9,7 @@ int main(int argc, char ** argv)
 
 	printf("> ");
 	read_char();
+    skip_white_space();
 
     BNF_leaf_node * root = COMP_Assignment();
 

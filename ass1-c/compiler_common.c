@@ -50,6 +50,7 @@ void match_token(const char c)
 	if (g_current_char == c)
 	{
 		read_char();
+		skip_white_space();
 	} 
 	else
 	{
@@ -86,6 +87,7 @@ char * get_identifier()
 				abort_compile("Compilation aborted");
 			}
 		}
+		skip_white_space();
 		return rtn;
 	}
 }
@@ -112,6 +114,7 @@ char * get_number()
 				abort_compile("Compilation aborted");
 			}
 		}
+		skip_white_space();
 		return rtn;
 	}
 }
@@ -133,4 +136,13 @@ char * create_string_from_char(const char c)
 	string[0] = c;
 	return string;
 }
+
+void skip_white_space()
+{
+	while (isblank(g_current_char))
+	{
+		read_char();
+	}
+}
+
 
