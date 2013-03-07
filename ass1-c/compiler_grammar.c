@@ -67,18 +67,18 @@ BNF_leaf_node * COMP_Expression()
 BNF_leaf_node * COMP_Identifier()
 {
 	BNF_leaf_node * node = bnf_create();
-	char ident = get_identifier();
+	char * ident = get_identifier();
 	
 	//check if function name
 	if (current_char() == '(')
 	{
 		match_token('(');
 		match_token(')');
-		node->function = create_string_from_char(ident);
+		node->function = ident;
 	}
 	else
 	{
-		node->value = create_string_from_char(ident);
+		node->value = ident;
 	}
 	
 	return node;
@@ -87,10 +87,10 @@ BNF_leaf_node * COMP_Identifier()
 BNF_leaf_node * COMP_Assignment()
 {
 	BNF_leaf_node * node = bnf_create();
-	char ident = get_identifier();
+	char * ident = get_identifier();
 	match_token('=');
 	BNF_leaf_node * expression = COMP_Expression();
-	node->identifier = create_string_from_char(ident);
+	node->identifier = ident;
 	node->assignment_expression = expression;
 	return node;
 }
@@ -136,10 +136,10 @@ BNF_leaf_node * COMP_Factor()
 	else
 	{
 		//get term
-		char term = get_number();
+		char * term = get_number();
 
 		node = bnf_create();
-		node->value = create_string_from_char(term);
+		node->value = term;
 	}
 	
 	return node;

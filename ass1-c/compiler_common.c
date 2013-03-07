@@ -5,8 +5,12 @@
 
 #include "compiler_common.h"
 
+#define MAX_IDENT_SIZE 33 //32 + 1 for null terminator
+#define MAX_NUMBER_SIZE 20 //19 + 1 for null terminator
+
 const char TAB_CHAR = '\t';
 char g_current_char = '0';
+
 
 char current_char() 
 {
@@ -60,7 +64,7 @@ void match_token(const char c)
 	}
 }
 
-char get_identifier()
+char * get_identifier()
 {
 	if (!isalpha(g_current_char))
 	{
@@ -71,13 +75,22 @@ char get_identifier()
 	}
 	else
 	{
-		char rtn = g_current_char;
-		read_char();
+		char * rtn = (char *) calloc(MAX_IDENT_SIZE, sizeof(char));
+		int i = 0;
+		while(isalnum(g_current_char)) {
+			rtn[i++] = g_current_char;
+			read_char();
+			if (i == MAX_IDENT_SIZE && isalnum(g_current_char)) {
+				printf("Identifier %s was too large, must be no longer than %d", 
+					rtn, MAX_IDENT_SIZE - 1);
+				abort_compile("Compilation aborted");
+			}
+		}
 		return rtn;
 	}
 }
 
-char get_number()
+char * get_number()
 {
 	if (!isdigit(g_current_char))
 	{
@@ -88,8 +101,17 @@ char get_number()
 	}
 	else
 	{
-		char rtn = g_current_char;
-		read_char();
+		char * rtn = (char *) calloc(MAX_NUMBER_SIZE, sizeof(char));
+		int i = 0;
+		while(isdigit(g_current_char)) {
+			rtn[i++] = g_current_char;
+			read_char();
+			if (i == MAX_NUMBER_SIZE && isalnum(g_current_char)) {
+				printf("Number %s was too large, must be no longer than %d digits", 
+					rtn, MAX_NUMBER_SIZE - 1);
+				abort_compile("Compilation aborted");
+			}
+		}
 		return rtn;
 	}
 }
