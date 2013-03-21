@@ -15,6 +15,14 @@ In the dist folder run:
 
     `java -jar Assignment**.jar [options]`
 
+###Compiler Structure
+
+The compiler is broken into parts.
+
+1. The lexer - Takes care of scanning for tokens
+2. Syntax parser - parses raw input (using lexer) and outputs an intermediate representation of the parse
+3. Architecture specific parser - parses intermediate input (using lexer) and outputs ISA specific assembly
+
 ###Language Grammar
 
          program -> block
