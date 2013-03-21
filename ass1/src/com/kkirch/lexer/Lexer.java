@@ -4,6 +4,7 @@
  */
 package com.kkirch.lexer;
 
+import com.kkirch.symbols.Type;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -27,7 +28,10 @@ public class Lexer {
         reserveWord(new Word("while", Tag.WHILE));
         reserveWord(Word.True);
         reserveWord(Word.False);
-        //TODO: reserve type symbols
+        reserveWord(Type.INT);
+        reserveWord(Type.FLOAT);
+        reserveWord(Type.CHAR);
+        reserveWord(Type.BOOL);
     }
 
     private void reserveWord(Word w) {

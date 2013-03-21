@@ -12,9 +12,9 @@ import java.io.PrintStream;
  */
 public class Node {
 
-    private final int lineNumber;
-    private static int labelCount = 0;
-    private final PrintStream outStream;
+    protected final int lineNumber;
+    private static int NEXT_LABEL = 0;
+    protected final PrintStream outStream;
 
     public Node(int lineNumber, PrintStream outStream) {
         this.lineNumber = lineNumber;
@@ -25,17 +25,16 @@ public class Node {
         throw new RuntimeException("Parse error near line " + lineNumber
                 + ": " + error);
     }
-    
+
     public int newLabel() {
-        return ++labelCount;
+        return ++NEXT_LABEL;
     }
-    
+
     public void emitLabel(int labelNum) {
         outStream.format("L%d:", labelNum);
     }
-    
+
     public void emitString(String s) {
-        outStream.format("\t",s);
+        outStream.format("\t", s);
     }
-    
 }

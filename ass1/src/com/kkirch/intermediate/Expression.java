@@ -14,14 +14,17 @@ import java.io.PrintStream;
  */
 public class Expression extends Node {
 
-    private final Token operator;
-    private final Type type;
+    protected final Token operator;
+    protected final Type type;
 
     public Expression(Token operator, Type type,
             int lineNumber, PrintStream outStream) {
         super(lineNumber, outStream);
         this.operator = operator;
         this.type = type;
+        if (type == null) {
+            this.throwError("Invalid type error");
+        }
     }
 
     /*
