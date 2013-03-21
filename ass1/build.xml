@@ -7,7 +7,7 @@
     <property name="build" location="build"/>
     <property name="dist"  location="dist"/>
     <property name="distlib"  location="dist/lib"/>
-    <property name="mainclass" value="Main"/>
+    <property name="mainclass" value="com.kkirch.Main"/>
     
     <path id="compile.classpath">
         <fileset dir=".">
@@ -20,6 +20,11 @@
         <tstamp/>
         <!-- Create the build directory structure used by compile -->
         <mkdir dir="${build}"/>
+    </target>
+    
+    <target name="run" depends="compile" description="Run the build">
+        <java classname="com.kkirch.Main" classpath="${build}">
+        </java>
     </target>
 
     <target name="compile" depends="init" description="compile the source " >
