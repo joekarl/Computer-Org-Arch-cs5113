@@ -4,7 +4,7 @@
  */
 package com.kkirch.symbols;
 
-import com.kkirch.intermediate.Id;
+import com.kkirch.ir.Id;
 import com.kkirch.lexer.Token;
 import java.util.HashMap;
 import java.util.Map;

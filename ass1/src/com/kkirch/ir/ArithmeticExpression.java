@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.kkirch.intermediate;
+package com.kkirch.ir;
 
 import com.kkirch.lexer.Token;
 import com.kkirch.symbols.Type;
