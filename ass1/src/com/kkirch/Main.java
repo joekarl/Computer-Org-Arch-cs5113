@@ -20,7 +20,7 @@ public class Main {
                 + "<# of operations>");
         System.out.println("\nCompiler Types :");
         for (CompilerType compilerType : CompilerType.values()) {
-            System.out.println("\t" + compilerType.name());
+            System.out.println("\t" + compilerType.toString());
         }
     }
 
@@ -39,7 +39,7 @@ public class Main {
             int memorySize;
             int opCount;
             try {
-
+                compilerType = CompilerType.valueOf(args[0]);
                 registerCount = Integer.parseInt(args[1]);
                 memorySize = Integer.parseInt(args[2]);
                 opCount = Integer.parseInt(args[3]);

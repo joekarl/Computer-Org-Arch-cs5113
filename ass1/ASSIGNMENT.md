@@ -19,15 +19,25 @@ The operations; memoery addressing modes
 and log-blocks to be simulated are as follows:
 
 * Operations: assignment, add, sub, 
-* Memory addressing mode: register direct, base register \& offset
+* Memory addressing mode: register direct, base register, and offset
 * Logic-blocks: if-then-else, while, switch-case, procedure calls
 
 
 The instructions to be simulated is based on the 
 the operations, memory addressing mode and logic blocks to be simulated.
 The mini-compiler for each ISA is to have limited instructions available:
-such as add, sub, mult, div; load, store; and goto, cmp (compare), and
-anything else as necessary.
+such as :
+
+* add
+* sub
+* mult
+* div
+* load
+* store
+* goto
+* cmp 
+* and anything else as necessary.
+
 The formats of the instructions are to be determined based on a few
 design variables such as the # of registers, the size of memory and
 the # of operations, and etc. as applicable.
@@ -35,7 +45,15 @@ Each mini-compiler has to carry an appropriate set of instructions that
 are equivalent to one or some or all of the above instructions 
 as applicable to each specific ISA.
 For example, the Stack Machine can carry the following instructions:
-push (load), pop (store), add, sub, mult, div, and goto, cmp.
+
+* push (load)
+* pop (store)
+* add
+* sub
+* mult
+* div
+* goto
+* cmp
 
 Lastly, your mini-compiler is to take the CPI for each defined instruction
 as a variable.
