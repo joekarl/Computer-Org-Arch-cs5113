@@ -14,8 +14,8 @@ import java.io.PrintStream;
  */
 public class Expression extends Node {
 
-    protected final Token operator;
-    protected final Type type;
+    public final Token operator;
+    public final Type type;
 
     public Expression(Token operator, Type type,
             int lineNumber, PrintStream outStream) {
