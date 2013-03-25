@@ -2,6 +2,7 @@ package com.kkirch;
 
 import com.kkirch.codegen.ICodeGenerator;
 import com.kkirch.codegen.LoadStoreCodeGenerator;
+import com.kkirch.codegen.MemoryMemoryCodeGenerator;
 import com.kkirch.lexer.Lexer;
 import com.kkirch.parser.CParser;
 import java.io.File;
@@ -57,7 +58,9 @@ public class Main {
         ICodeGenerator codeGenerator = null;
         if (compilerType == CompilerType.LDST) {
             codeGenerator = new LoadStoreCodeGenerator();
-        }
+        } else if (compilerType == CompilerType.MM) {
+            codeGenerator = new MemoryMemoryCodeGenerator();
+        } 
 
         //write ir to filename.ir
         FileInputStream fis = new FileInputStream(new File(args[1]));

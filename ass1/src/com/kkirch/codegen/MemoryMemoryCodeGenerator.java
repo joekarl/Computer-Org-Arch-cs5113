@@ -19,7 +19,7 @@ import java.util.regex.Matcher;
  *
  * @author kkirch
  */
-public class LoadStoreCodeGenerator implements ICodeGenerator {
+public class MemoryMemoryCodeGenerator implements ICodeGenerator {
 
     public void generateCode(InputStream inStream, PrintStream outStream) {
         BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
@@ -63,8 +63,7 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                     if (matcher.group(2) != null) {
                         //array assignment
                         String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
-                        output += "(R0), ";
-                        emitString("LOAD R0, " + offset, outStream);
+                        output += "(" + offset + "), ";
                     } else {
                         output += ", ";
                     }
@@ -74,11 +73,9 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                         //array assignment
                         output += matcher.group(3);
                         String offset = matcher.group(4).split("\\[")[1].split("\\]")[0].trim();
-                        output += "(R1)";
-                        emitString("LOAD R1, " + offset, outStream);
+                        output += "(" + offset + ")";
                     } else {
-                        emitString("LOAD R1, " + matcher.group(3), outStream);
-                        output += "R1";
+                        output += matcher.group(3);
                     }
 
                     emitString(output, outStream);
@@ -90,44 +87,38 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                 matcher = ARITHMETIC_LITERAL_ASSIGN_REGEX_1.matcher(line);
                 //i = 1 + a;
                 if (matcher.matches()) {
-                    //a = R0
-                    //a(R1)
-                    //i(R3)
-                    
+
                     String output = "";
                     String op = matcher.group(4);
                     if ("*".equals(op)) {
-                        output += "MULT R0, #" + matcher.group(3) + ", R0";
+                        output += "MULT ";
                     } else if ("/".equals(op)) {
-                        output += "DIV R0, #" + matcher.group(3) + ", R0";
+                        output += "DIV ";
                     } else if ("-".equals(op)) {
-                        output += "SUB R0, #" + matcher.group(3) + ", R0";
+                        output += "SUB ";
                     } else if ("+".equals(op)) {
-                        output += "ADD R0, #" + matcher.group(3) + ", R0";
+                        output += "ADD ";
                     }
 
-                    if (matcher.group(6) != null) {
-                        String arrayAccessOutput = "LOAD R0, ";
-                        arrayAccessOutput += matcher.group(5);
-                        String offset = matcher.group(6).split("\\[")[1].split("\\]")[0].trim();
-                        arrayAccessOutput += "(R1)";
-                        emitString("LOAD R1, " + offset, outStream);
-                        emitString(arrayAccessOutput, outStream);
-                    } else {
-                        emitString("LOAD R0, " + matcher.group(5), outStream);
-                    }
-
-                    emitString(output, outStream);
-
-                    output = "STORE " + matcher.group(1);
                     if (matcher.group(2) != null) {
                         String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
-                        output += "(R3), R0";
-                        emitString("LOAD R3, " + offset, outStream);
+                        output += matcher.group(1) + "(" + offset + "), ";
                     } else {
-                        output += ", R0";
+                        output += matcher.group(1) + ", ";
                     }
+
+                    output += "#" + matcher.group(3) + ", ";
+
+                    if (matcher.group(6) != null) {
+                        output += matcher.group(5);
+                        String offset = matcher.group(6).split("\\[")[1].split("\\]")[0].trim();
+                        output += "(" + offset + ")";
+                    } else {
+                        output += matcher.group(5);
+                    }
+
                     emitString(output, outStream);
+
                     continue;
                 }
 
@@ -138,88 +129,81 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                     String output = "";
                     String op = matcher.group(5);
                     if ("*".equals(op)) {
-                        output += "MULT R0, R0, #" + matcher.group(6);
+                        output += "MULT ";
                     } else if ("/".equals(op)) {
-                        output += "DIV R0, R0, #" + matcher.group(6);
+                        output += "DIV ";
                     } else if ("-".equals(op)) {
-                        output += "SUB R0, R0, #" + matcher.group(6);
+                        output += "SUB ";
                     } else if ("+".equals(op)) {
-                        output += "ADD R0, R0, #" + matcher.group(6);
+                        output += "ADD ";
                     }
 
-                    if (matcher.group(4) != null) {
-                        String arrayAccessOutput = "LOAD R0, ";
-                        arrayAccessOutput += matcher.group(3);
-                        String offset = matcher.group(4).split("\\[")[1].split("\\]")[0].trim();
-                        arrayAccessOutput += "(R1)";
-                        emitString("LOAD R1, " + offset, outStream);
-                        emitString(arrayAccessOutput, outStream);
-                    } else {
-                        emitString("LOAD R0, " + matcher.group(3), outStream);
-                    }
-
-                    emitString(output, outStream);
-
-                    output = "STORE " + matcher.group(1);
                     if (matcher.group(2) != null) {
                         String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
-                        output += "(R3), R0";
-                        emitString("LOAD R3, " + offset, outStream);
+                        output += matcher.group(1) + "(" + offset + "), ";
                     } else {
-                        output += ", R0";
+                        output += matcher.group(1) + ", ";
                     }
+
+
+                    if (matcher.group(4) != null) {
+                        output += matcher.group(3);
+                        String offset = matcher.group(4).split("\\[")[1].split("\\]")[0].trim();
+                        output += "(" + offset + "), ";
+                    } else {
+                        output += matcher.group(3) + ", ";
+                    }
+                    
+                    
+                    output += "#" + matcher.group(6);
+
                     emitString(output, outStream);
+
                     continue;
                 }
 
                 matcher = ARITHMETIC_VARIABLE_ASSIGN_REGEX.matcher(line);
                 //a = b + c
                 if (matcher.matches()) {
-                    //b = R0
-                    //c = R1
-                    //a(R2)
-                    //b(R3)
-                    //c(R4)
-
-                    //load b
-                    if (matcher.group(4) != null) {
-                        String offset = matcher.group(4).split("\\[")[1].split("\\]")[0].trim();
-                        emitString("LOAD R3, " + offset, outStream);
-                        emitString("LOAD R0, " + matcher.group(3) + "(R3)", outStream);
-                    } else {
-                        emitString("LOAD R0, " + matcher.group(3), outStream);
-                    }
-
-                    //load c
-                    if (matcher.group(7) != null) {
-                        String offset = matcher.group(7).split("\\[")[1].split("\\]")[0].trim();
-                        emitString("LOAD R4, " + offset, outStream);
-                        emitString("LOAD R1, " + matcher.group(6) + "(R4)", outStream);
-                    } else {
-                        emitString("LOAD R1, " + matcher.group(6), outStream);
-                    }
-
                     String output = "";
                     String op = matcher.group(5);
                     if ("*".equals(op)) {
-                        output += "MULT R0, R0, R1";
+                        output += "MULT ";
                     } else if ("/".equals(op)) {
-                        output += "DIV R0, R0, R1";
+                        output += "DIV ";
                     } else if ("-".equals(op)) {
-                        output += "SUB R0, R0, R1";
+                        output += "SUB ";
                     } else if ("+".equals(op)) {
-                        output += "ADD R0, R0, R1";
+                        output += "ADD ";
                     }
 
-                    output = "STORE " + matcher.group(1);
                     if (matcher.group(2) != null) {
                         String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
-                        output += "(R2), R0";
-                        emitString("LOAD R2, " + offset, outStream);
+                        output += matcher.group(1) + "(" + offset + "), ";
                     } else {
-                        output += ", R0";
+                        output += matcher.group(1) + ", ";
                     }
+
+
+                    if (matcher.group(4) != null) {
+                        output += matcher.group(3);
+                        String offset = matcher.group(4).split("\\[")[1].split("\\]")[0].trim();
+                        output += "(" + offset + "), ";
+                    } else {
+                        output += matcher.group(3) + ", ";
+                    }
+                    
+                    
+                    if (matcher.group(7) != null) {
+                        output += matcher.group(6);
+                        String offset = matcher.group(7).split("\\[")[1].split("\\]")[0].trim();
+                        output += "(" + offset + ")";
+                    } else {
+                        output += matcher.group(6);
+                    }
+
                     emitString(output, outStream);
+
                     continue;
                 }
 
@@ -233,16 +217,6 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                 matcher = BRANCH_VAR_LITERAL_CMP_REGEX.matcher(line);
                 //iffalse i < 50 goto L2
                 if (matcher.matches()) {
-                    //i = R0
-                    //i(R1)
-
-                    if (matcher.group(2) != null) {
-                        String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
-                        emitString("LOAD R1, " + offset, outStream);
-                        emitString("LOAD R0, " + matcher.group(1) + "(R1)", outStream);
-                    } else {
-                        emitString("LOAD R0, " + matcher.group(1), outStream);
-                    }
 
                     String output = "";
                     String relational = matcher.group(3);
@@ -259,26 +233,23 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                     } else if ("!=".equals(relational)) {
                         output += "BNE ";
                     }
+                    
+                    if (matcher.group(2) != null) {
+                        String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
+                        output += matcher.group(1) + "(" + offset + "), ";
+                    } else {
+                        output += matcher.group(1) + ", ";
+                    }
 
-                    output += "R0, #" + matcher.group(4) + ", " + matcher.group(5);
+                    output += "#" + matcher.group(4) + ", " + matcher.group(5);
                     emitString(output, outStream);
                     continue;
                 }
-                
+
                 matcher = BRANCH_LITERAL_VAR_CMP_REGEX.matcher(line);
                 //iffalse 50 < i goto L2
                 if (matcher.matches()) {
-                    //i = R0
-                    //i(R1)
-
-                    if (matcher.group(4) != null) {
-                        String offset = matcher.group(4).split("\\[")[1].split("\\]")[0].trim();
-                        emitString("LOAD R1, " + offset, outStream);
-                        emitString("LOAD R0, " + matcher.group(3) + "(R1)", outStream);
-                    } else {
-                        emitString("LOAD R0, " + matcher.group(3), outStream);
-                    }
-
+                    
                     String output = "";
                     String relational = matcher.group(2);
                     if ("<".equals(relational)) {
@@ -294,39 +265,25 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                     } else if ("!=".equals(relational)) {
                         output += "BNE ";
                     }
+                    
+                    output += "#" + matcher.group(1) + ", ";
+                    
+                    if (matcher.group(4) != null) {
+                        String offset = matcher.group(4).split("\\[")[1].split("\\]")[0].trim();
+                        output += matcher.group(3) + "(" + offset + "), ";
+                    } else {
+                        output += matcher.group(3) + ", ";
+                    }
 
-                    output += "#" + matcher.group(1) + ", R0, " + matcher.group(5);
+                    output += matcher.group(5);
                     emitString(output, outStream);
                     continue;
                 }
-                
+
                 matcher = BRANCH_VAR_VAR_CMP_REGEX.matcher(line);
                 //iffalse x < i goto L2
                 if (matcher.matches()) {
-                    //x = R0
-                    //x(R2)
-                    //i = R1
-                    //i(R3)
-                    
-                    //load x
-                    //load i
-                    if (matcher.group(2) != null) {
-                        String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
-                        emitString("LOAD R2, " + offset, outStream);
-                        emitString("LOAD R0, " + matcher.group(1) + "(R2)", outStream);
-                    } else {
-                        emitString("LOAD R0, " + matcher.group(1), outStream);
-                    }
-                    
-                    //load i
-                    if (matcher.group(5) != null) {
-                        String offset = matcher.group(5).split("\\[")[1].split("\\]")[0].trim();
-                        emitString("LOAD R3, " + offset, outStream);
-                        emitString("LOAD R1, " + matcher.group(4) + "(R3)", outStream);
-                    } else {
-                        emitString("LOAD R1, " + matcher.group(4), outStream);
-                    }
-
+                     
                     String output = "";
                     String relational = matcher.group(3);
                     if ("<".equals(relational)) {
@@ -342,8 +299,23 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                     } else if ("!=".equals(relational)) {
                         output += "BNE ";
                     }
+                    
+                    
+                    if (matcher.group(2) != null) {
+                        String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
+                        output += matcher.group(1) + "(" + offset + "), ";
+                    } else {
+                        output += matcher.group(1) + ", ";
+                    }
+                    
+                    if (matcher.group(5) != null) {
+                        String offset = matcher.group(5).split("\\[")[1].split("\\]")[0].trim();
+                        output += matcher.group(4) + "(" + offset + "), ";
+                    } else {
+                        output += matcher.group(4) + ", ";
+                    }
 
-                    output += "R0, R1, " + matcher.group(6);
+                    output += matcher.group(6);
                     emitString(output, outStream);
                     continue;
                 }
