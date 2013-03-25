@@ -4,11 +4,12 @@ import com.kkirch.codegen.ICodeGenerator;
 import com.kkirch.codegen.LoadStoreCodeGenerator;
 import com.kkirch.lexer.Lexer;
 import com.kkirch.parser.CParser;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 
 /**
  *
@@ -18,82 +19,61 @@ public class Main {
 
     public static void invalidArgs() {
         System.out.println("Invalid arguments\nUsage :\n\tjava -jar xxx.jar "
-                + "<compiler type> "
-                + "<# of registers> <available memory (in bytes)> "
-                + "<# of operations>");
+                + "<compiler type> /path/to/file/to/compile");
     }
 
     public static void help() {
         System.out.println("Usage :\n\tjava -jar xxx.jar "
-                + "<compiler type> "
-                + "<# of registers> <available memory (in bytes)> "
-                + "<# of operations>");
+                + "<compiler type> /path/to/file/to/compile");
         System.out.println("\nCompiler Types :");
         for (CompilerType compilerType : CompilerType.values()) {
             System.out.println("\t" + compilerType.toString());
         }
     }
 
-    public static void main(String... args) throws FileNotFoundException, IOException {
-        //        if (args.length != 4) {
-        //            if (args.length > 0
-        //                    && ("-h".equalsIgnoreCase(args[0])
-        //                    || "--help".equalsIgnoreCase(args[0]))) {
-        //                help();
-        //            } else {
-        //                invalidArgs();
-        //            }
-        //        } else {
-        //            CompilerType compilerType;
-        //            int registerCount;
-        //            int memorySize;
-        //            int opCount;
-        //            try {
-        //                compilerType = CompilerType.valueOf(args[0]);
-        //                registerCount = Integer.parseInt(args[1]);
-        //                memorySize = Integer.parseInt(args[2]);
-        //                opCount = Integer.parseInt(args[3]);
-        //            } catch (Exception e) {
-        //                invalidArgs();
-        //            }
-        //
-        //
-        //        }
-//        FileInputStream fis = new FileInputStream(new File(args[0]));
-//        Lexer lex = new Lexer(fis);
-//        
-//        CParser parser = new CParser(lex, System.out);
-//        parser.program();
-//        System.out.println("\n");
-//        fis.close();
+    public static void main(final String... args) throws FileNotFoundException, IOException {
 
-        String ir = ""
-                + "L1:	i = 0\n"
-                + "L3:	i = i + 1\n"
-                + "L4:	f = 5.500000\n"
-                + "L5:	t1 = i * 8\n"
-                + "	a [ t1 ] = f\n"
-                + "L6:	iffalse i < 50 goto L2\n"
-                + "L7:	i = i + 1\n"
-                + "L8:	t2 = i * 8\n"
-                + "	t3 = 24 + f\n"
-                + "	t4 = 25 * t3\n"
-                + "	t5 = i - 1\n"
-                + "	t6 = t5 * 8\n"
-                + "	t7 = a [ t6 ]\n"
-                + "	t8 = t4 + t7\n"
-                + "	a [ t2 ] = t8\n"
-                + "	goto L6\n"
-                + "L2:";
+        if (args.length != 2) {
+            if (args.length > 0
+                    && ("-h".equalsIgnoreCase(args[0])
+                    || "--help".equalsIgnoreCase(args[0]))) {
+                help();
+            } else {
+                invalidArgs();
+            }
+        } else {
+            try {
+                CompilerType compilerType = CompilerType.valueOf(args[0]);
+                compile(compilerType, args);
+            } catch (Exception e) {
+                invalidArgs();
+                throw new RuntimeException(e);
+            }
+        }
 
-        ByteArrayInputStream is = new ByteArrayInputStream(ir.getBytes());
-        ICodeGenerator codeGenerator;
-        if (true) {
+    }
+
+    private static void compile(CompilerType compilerType, final String... args) throws IOException {
+        ICodeGenerator codeGenerator = null;
+        if (compilerType == CompilerType.LDST) {
             codeGenerator = new LoadStoreCodeGenerator();
         }
-        
-        codeGenerator.generateCode(is, System.out);
-        
-        is.close();
+
+        //write ir to filename.ir
+        FileInputStream fis = new FileInputStream(new File(args[1]));
+        FileOutputStream fos = new FileOutputStream(new File(args[1] + ".ir"));
+        Lexer lex = new Lexer(fis);
+
+        CParser parser = new CParser(lex, new PrintStream(fos));
+        parser.program();
+
+        fis.close();
+        fos.close();
+
+        //read from filename.ir and print to standard out
+        fis = new FileInputStream(new File(args[1] + ".ir"));
+        codeGenerator.generateCode(fis, System.out);
+
+        fis.close();
     }
 }
