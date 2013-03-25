@@ -8,14 +8,14 @@ of various ISAs as provided in the homework assignment (1).
 The simulation is to be performed at the assembly code level 
 as their instruction formats are laid out in the homework assignement (1).
 In order to facilitate the simulation you are to write 
-a mini-compiler for each ISA, i.e., Memory-Mamory Architecture,
+a mini-compiler for each ISA, i.e., Memory-Memory Architecture,
 Accumulator Architecture, Stack Architecture, and Load-Store Architecture.
 
 Each ISA to be simulated is the same as described as in the homework (1);
 note that the # of registers, the size of memory in bytes, the # of operations
 available have to be simulated as a variable.
 
-The operations; memoery addressing modes
+The operations; memory addressing modes
 and log-blocks to be simulated are as follows:
 
 * Operations: assignment, add, sub, 
