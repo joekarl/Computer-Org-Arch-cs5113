@@ -4,7 +4,6 @@
  */
 package com.kkirch.ir;
 
-import com.kkirch.ir.Expression;
 import com.kkirch.lexer.Token;
 import java.io.PrintStream;
 
@@ -14,11 +13,11 @@ import java.io.PrintStream;
  */
 public class Not extends Logical {
 
-    public Not(Expression e1, Expression e2, 
+    public Not(Expression e1,
             Token operator, int lineNumber, PrintStream outStream) {
-        super(e1, e2, Logical.BoolTypeCheck, operator, lineNumber, outStream);
+        super(e1, e1, Logical.BoolTypeCheck, operator, lineNumber, outStream);
     }
-    
+
     @Override
     public void jump(int ifLabel, int elseLabel) {
         e2.jump(ifLabel, elseLabel);

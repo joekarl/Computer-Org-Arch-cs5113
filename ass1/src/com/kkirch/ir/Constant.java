@@ -4,7 +4,6 @@
  */
 package com.kkirch.ir;
 
-import com.kkirch.ir.Expression;
 import com.kkirch.lexer.Number;
 import com.kkirch.lexer.Token;
 import com.kkirch.lexer.Word;

@@ -40,4 +40,8 @@ public class Type extends Word {
             return Type.CHAR;
         }
     }
+
+    public int getSize() {
+        return size;
+    }
 }

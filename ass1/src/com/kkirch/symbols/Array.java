@@ -24,4 +24,9 @@ public class Array extends Type {
     public String toString() {
         return "[" + length + "] " + typeOf.toString();
     }
+
+    public Type getTypeOf() {
+        return typeOf;
+    }
+    
 }

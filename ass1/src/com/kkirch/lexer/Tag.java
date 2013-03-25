@@ -5,29 +5,31 @@
 package com.kkirch.lexer;
 
 /**
- *
+ * Mix of single and non-single character tags 
+ * for identifying during parse
+ * 
  * @author kkirch
  */
 public class Tag {
 
-    public static final int AND = 1,
-            EQ = 2,
-            INDEX = 3,
-            OR = 4,
-            BASIC = 5,
-            FALSE = 6,
-            LE = 7,
-            REAL = 8,
-            BREAK = 9,
-            GE = 10,
-            MINUS = 11,
-            TEMP = 12,
-            DO = 13,
-            ID = 14,
-            NE = 15,
-            TRUE = 16,
-            ELSE = 17,
-            IF = 18,
-            NUM = 19,
-            WHILE = 20;
+    public static final int AND = 256,
+            EQ = 257,
+            INDEX = 258,
+            OR = 259,
+            BASIC =260,
+            FALSE = 261,
+            LE = 262,
+            REAL = 263,
+            BREAK = 264,
+            GE = 265,
+            MINUS = 266,
+            TEMP = 267,
+            DO = 268,
+            ID = 269,
+            NE = 270,
+            TRUE = 271,
+            ELSE = 272,
+            IF = 273,
+            NUM = 274,
+            WHILE = 275;
 }

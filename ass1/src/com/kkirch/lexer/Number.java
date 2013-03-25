@@ -21,4 +21,8 @@ public class Number extends Token {
     public String toString() {
         return String.format("%d", val);
     }
+
+    public int getVal() {
+        return val;
+    }
 }

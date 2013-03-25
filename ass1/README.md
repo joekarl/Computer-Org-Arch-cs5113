@@ -29,29 +29,29 @@ The compiler is broken into parts.
            block -> '{' declerations statements '}'
     declerations -> decleration declerations
      decleration -> type ID
-            type -> type'[' NUM ']' | BASIC
+            type -> type '[' NUM ']' | BASIC
       statements -> statement statements
-       statement -> var '=' bool ';'
+       statement -> assignment '=' bool ';'
                   | IF '(' bool ')' statement
                   | IF '(' bool ')' statement ELSE statement
                   | WHILE '(' bool ')' statement
                   | block 
-             var -> var'[' bool ']'
+      assignment -> assignment '[' bool ']'
                   | ID
             bool -> join '||' bool
                   | join
             join -> equality '&&' join
                   | equality
-        equality -> rel '==' equality
-                  | rel '!=' equality
-                  | rel
-             rel -> expr '<' expr
-                  | expr '>' expr
-                  | expr '<=' expr
-                  | expr '>=' expr
-                  | expr
-            expr -> term '+' expr
-                  | term '-' expr
+        equality -> relational '==' equality
+                  | relational '!=' equality
+                  | relational
+      relational -> expression '<' expression
+                  | expression '>' expression
+                  | expression '<=' expression
+                  | expression '>=' expression
+                  | expression
+      expression -> term '+' expression
+                  | term '-' expression
                   | term
             term -> unary '*' term 
                   | unary '/' term
@@ -60,7 +60,7 @@ The compiler is broken into parts.
                   | '-' unary
                   | factor
           factor -> '(' bool ')'
-                  | var
+                  | assignment
                   | NUM
                   | REAL
                   | 'true'

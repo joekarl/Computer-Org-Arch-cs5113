@@ -41,6 +41,10 @@ public class Lexer {
     private void readChar() throws IOException {
         peek = (char) inStream.read();
     }
+    
+    public int getCurrentLine() {
+        return currentLine;
+    }
 
     private boolean match(char c) throws IOException {
         readChar();
