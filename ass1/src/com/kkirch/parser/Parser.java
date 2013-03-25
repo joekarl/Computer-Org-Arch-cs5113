@@ -27,16 +27,16 @@ public class Parser {
         readNextToken();
     }
     
-    protected void readNextToken() throws IOException {
+    protected final void readNextToken() throws IOException {
         lookahead = lexer.scan();
     }
     
-    protected void throwError(String error, int lineNumber) {
+    protected final void throwError(String error, int lineNumber) {
         throw new RuntimeException("Parse error near line " + lineNumber
                 + ": " + error);
     }
     
-    protected void match(int tag) throws IOException {
+    protected final void match(int tag) throws IOException {
         if (lookahead.tag == tag) {
             readNextToken();
         } else {

@@ -43,9 +43,11 @@ public class CParser extends Parser {
         Statement s = block();
         int begin = s.newLabel();
         int after = s.newLabel();
-        s.emitLabel(begin);
-        s.generate(begin, after);
-        s.emitLabel(after);
+        if (s != Statement.NULL) {
+            s.emitLabel(begin);
+            s.generate(begin, after);
+            s.emitLabel(after);
+        }
     }
 
     //'{' declerations statements '}'
@@ -64,6 +66,7 @@ public class CParser extends Parser {
         while (lookahead.tag == Tag.BASIC) {
             Type t = type();
             Token token = lookahead;
+            match(Tag.ID);
             match(';');
             Id id = new Id(declaredMemoryUsage, (Word) token, t,
                     lexer.getCurrentLine(), outStream);
@@ -326,7 +329,7 @@ public class CParser extends Parser {
             arrayLocation = new ArithmeticExpression(arrayLocation, offset, new Token('+'),
                     lexer.getCurrentLine(), outStream);
         }
-        
+
         return new ArrayAccess(arrayId, arrayLocation, t,
                 lexer.getCurrentLine(), outStream);
     }

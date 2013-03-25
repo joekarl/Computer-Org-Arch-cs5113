@@ -13,10 +13,18 @@ import java.io.PrintStream;
  * @author kkirch
  */
 public class Temp extends Expression {
+
     private static int NEXT_ID = 0;
     private int id;
+
     public Temp(Type t, int lineNumber, PrintStream outStream) {
         super(Word.temp, t, lineNumber, outStream);
         id = ++NEXT_ID;
     }
+
+    @Override
+    public String toString() {
+        return String.format("t%d", id);
+    }
+    
 }

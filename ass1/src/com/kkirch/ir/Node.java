@@ -35,6 +35,6 @@ public class Node {
     }
 
     public void emitString(String s) {
-        outStream.format("\t", s);
+        outStream.format("\t%s\n", s);
     }
 }

@@ -41,7 +41,7 @@ public class Lexer {
     private void readChar() throws IOException {
         peek = (char) inStream.read();
     }
-    
+
     public int getCurrentLine() {
         return currentLine;
     }
@@ -59,11 +59,12 @@ public class Lexer {
     public Token scan() throws IOException {
         //read till we find something thats not whitespace
         while (true) {
-            readChar();
             if (' ' == peek || '\t' == peek) {
+                readChar();
                 continue;
             } else if ('\n' == peek) {
                 currentLine++;
+                readChar();
                 continue;
             } else {
                 break;
@@ -109,15 +110,15 @@ public class Lexer {
                     return new Token('>');
                 }
         }
-        
+
         //check to see if this token is a number
         if (Character.isDigit(peek)) {
             String numString = "";
             do {
                 numString += peek;
                 readChar();
-            } while(Character.isDigit(peek));
-            
+            } while (Character.isDigit(peek));
+
             //check to see if we're done or we're at a decimal
             if (peek != '.') {
                 //its not
@@ -130,11 +131,11 @@ public class Lexer {
                     numString += peek;
                     readChar();
                 }
-                
+
                 return new RealNumber(Float.parseFloat(numString));
             }
         }
-        
+
         //so this must be a real token if we hit a character
         if (Character.isLetter(peek)) {
             String tokenString = "";
@@ -151,7 +152,7 @@ public class Lexer {
                 return knownWord;
             }
         }
-        
+
         //if we reach here, read individual tokens
         Token t = new Token(peek);
         peek = ' ';

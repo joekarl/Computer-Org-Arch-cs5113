@@ -17,6 +17,6 @@ public class Token {
 
     @Override
     public String toString() {
-        return String.format("%d",tag);
+        return String.format("%c",tag);
     }
 }
