@@ -48,10 +48,14 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                         //array assignment
                         String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
                         emitString("STORE " + matcher.group(1) + "(" + offset + "), "
-                                + "#" + matcher.group(3), outStream);
+                                + "#"
+                                + ("minus".equals(matcher.group(3)) ? "-" : "")
+                                + matcher.group(4), outStream);
                     } else {
                         emitString("STORE " + matcher.group(1) + ", "
-                                + "#" + matcher.group(3), outStream);
+                                + "#"
+                                + ("minus".equals(matcher.group(3)) ? "-" : "")
+                                + matcher.group(4), outStream);
                     }
                     continue;
                 }
@@ -93,7 +97,7 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                     //a = R0
                     //a(R1)
                     //i(R3)
-                    
+
                     String output = "";
                     String op = matcher.group(4);
                     if ("*".equals(op)) {
@@ -264,7 +268,7 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                     emitString(output, outStream);
                     continue;
                 }
-                
+
                 matcher = BRANCH_LITERAL_VAR_CMP_REGEX.matcher(line);
                 //iffalse 50 < i goto L2
                 if (matcher.matches()) {
@@ -299,7 +303,7 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                     emitString(output, outStream);
                     continue;
                 }
-                
+
                 matcher = BRANCH_VAR_VAR_CMP_REGEX.matcher(line);
                 //iffalse x < i goto L2
                 if (matcher.matches()) {
@@ -307,9 +311,8 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                     //x(R2)
                     //i = R1
                     //i(R3)
-                    
+
                     //load x
-                    //load i
                     if (matcher.group(2) != null) {
                         String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
                         emitString("LOAD R2, " + offset, outStream);
@@ -317,7 +320,7 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
                     } else {
                         emitString("LOAD R0, " + matcher.group(1), outStream);
                     }
-                    
+
                     //load i
                     if (matcher.group(5) != null) {
                         String offset = matcher.group(5).split("\\[")[1].split("\\]")[0].trim();
@@ -345,6 +348,21 @@ public class LoadStoreCodeGenerator implements ICodeGenerator {
 
                     output += "R0, R1, " + matcher.group(6);
                     emitString(output, outStream);
+                    continue;
+                }
+
+                matcher = BRANCH_BOOL_REGEX.matcher(line);
+                //iffalse boolVal goto L2
+                if (matcher.matches()) {
+                    if (matcher.group(2) != null) {
+                        String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
+                        emitString("LOAD R1, " + offset, outStream);
+                        emitString("LOAD R0, " + matcher.group(1) + "(R1)", outStream);
+                    } else {
+                        emitString("LOAD R0, " + matcher.group(1), outStream);
+                    }
+
+                    emitString("BGT R0, #0, " + matcher.group(3), outStream);
                     continue;
                 }
 

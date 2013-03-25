@@ -48,10 +48,14 @@ public class MemoryMemoryCodeGenerator implements ICodeGenerator {
                         //array assignment
                         String offset = matcher.group(2).split("\\[")[1].split("\\]")[0].trim();
                         emitString("STORE " + matcher.group(1) + "(" + offset + "), "
-                                + "#" + matcher.group(3), outStream);
+                                + "#"
+                                + ("minus".equals(matcher.group(3)) ? "-" : "")
+                                + matcher.group(4), outStream);
                     } else {
                         emitString("STORE " + matcher.group(1) + ", "
-                                + "#" + matcher.group(3), outStream);
+                                + "#"
+                                + ("minus".equals(matcher.group(3)) ? "-" : "")
+                                + matcher.group(4), outStream);
                     }
                     continue;
                 }

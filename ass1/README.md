@@ -3,7 +3,7 @@
 Built using ant. 
 Ant targets available are:
 
-* dist (builds an executable jar)
+* dist (default - builds an executable jar)
 * compile (builds the class files)
 * clean (removes dist and build folders)
 
@@ -13,15 +13,41 @@ Ant targets available are:
 To run, first build using `ant`, then go to the dist folder.
 In the dist folder run: 
 
-    `java -jar Assignment**.jar [options]`
+    `java -jar xxx.jar <compiler type> /path/to/file/to/compile`
+
+
+###Compiler types
+
+To list the compiler types, use the -h flag
+    
+    `java -jar xxx.jar -h`
+
 
 ###Compiler Structure
 
-The compiler is broken into parts.
+The compiler is broken into 3 parts.
 
 1. The lexer - Takes care of scanning for tokens
 2. Syntax parser - parses raw input (using lexer) and outputs an intermediate representation of the parse
-3. Architecture specific parser - parses intermediate input (using ir lexer) and outputs ISA specific assembly
+3. Architecture specific code generator - parses ir input and outputs ISA specific assembly
+
+If this was a better compiler I'd have a 4th part which would be an optimizer.
+
+
+###Language Spec
+
+The target language is a simple version of C.
+The rules are as follows :
+
+* Declerations must be made at the top of a block
+* There is no assignment allowed at decleration time
+* The only loop type supported is the WHILE loop
+* There is no break
+* There are no function calls (as of right now, didn't have time)
+* if/else is supported
+* nested if/else is supported
+* simple type system (only int/float/char/bool)
+* comparisons can only be done between like
 
 ###Language Grammar
 
