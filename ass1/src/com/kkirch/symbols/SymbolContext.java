@@ -30,7 +30,7 @@ public class SymbolContext {
         Id foundId = null;
         SymbolContext currentContext = this;
         while (currentContext != null) {
-            foundId = symbolTable.get(t);
+            foundId = currentContext.symbolTable.get(t);
             if (foundId == null) {
                 currentContext = currentContext.parentContext;
             } else {

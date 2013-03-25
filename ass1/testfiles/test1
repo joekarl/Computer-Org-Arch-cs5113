@@ -1,6 +1,11 @@
 {
   float[50] a;
-  float f = 5.5;
+  float f;
+  int i;
+  i = 0;
+  i = i + 1;
+  f = 5.5;
+  a[i] = f;
   while(i < 50) {
     i = i + 1;
     a[i] = 25 * (24 + f);
