@@ -28,7 +28,7 @@ public class AccumulatorCodeGenerator implements ICodeGenerator {
         try {
             while ((line = br.readLine()) != null) {
                 //does this line have a label?
-                if (line.matches("L\\d:.*")) {
+                if (line.matches("L\\d+:.*")) {
                     //it does, print label then print other statements
                     String[] lineSplit = line.split(":");
                     outStream.print(String.format("%s:", lineSplit[0]));
