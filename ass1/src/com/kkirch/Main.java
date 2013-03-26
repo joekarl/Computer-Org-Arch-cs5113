@@ -1,8 +1,10 @@
 package com.kkirch;
 
+import com.kkirch.codegen.AccumulatorCodeGenerator;
 import com.kkirch.codegen.ICodeGenerator;
 import com.kkirch.codegen.LoadStoreCodeGenerator;
 import com.kkirch.codegen.MemoryMemoryCodeGenerator;
+import com.kkirch.codegen.StackCodeGenerator;
 import com.kkirch.lexer.Lexer;
 import com.kkirch.parser.CParser;
 import java.io.File;
@@ -60,7 +62,11 @@ public class Main {
             codeGenerator = new LoadStoreCodeGenerator();
         } else if (compilerType == CompilerType.MM) {
             codeGenerator = new MemoryMemoryCodeGenerator();
-        } 
+        } else if (compilerType == CompilerType.ACCUM) {
+            codeGenerator = new AccumulatorCodeGenerator();
+        } else if (compilerType == CompilerType.STACK) {
+            codeGenerator = new StackCodeGenerator();
+        }
 
         //write ir to filename.ir
         FileInputStream fis = new FileInputStream(new File(args[1]));
