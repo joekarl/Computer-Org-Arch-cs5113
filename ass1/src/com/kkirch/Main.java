@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Map;
 
 /**
  *
@@ -22,12 +23,12 @@ public class Main {
 
     public static void invalidArgs() {
         System.out.println("Invalid arguments\nUsage :\n\tjava -jar xxx.jar "
-                + "<compiler type> /path/to/file/to/compile");
+                + "<compiler type> /path/to/file/to/compile /path/to/cpi/file");
     }
 
     public static void help() {
         System.out.println("Usage :\n\tjava -jar xxx.jar "
-                + "<compiler type> /path/to/file/to/compile");
+                + "<compiler type> /path/to/file/to/compile /path/to/cpi/file");
         System.out.println("\nCompiler Types :");
         for (CompilerType compilerType : CompilerType.values()) {
             System.out.println("\t" + compilerType.toString());
@@ -36,7 +37,7 @@ public class Main {
 
     public static void main(final String... args) throws FileNotFoundException, IOException {
 
-        if (args.length != 2) {
+        if (args.length != 3) {
             if (args.length > 0
                     && ("-h".equalsIgnoreCase(args[0])
                     || "--help".equalsIgnoreCase(args[0]))) {
@@ -74,9 +75,9 @@ public class Main {
 
         //write ir to filename.ir
         FileInputStream fis = new FileInputStream(new File(args[1]));
-        FileOutputStream fos = new FileOutputStream(new File(args[1] + ".ir"));
+        FileOutputStream fos = new FileOutputStream(new File(args[1] + "." + compilerType + ".ir"));
         Lexer lex = new Lexer(fis);
-        
+
         PrintStream ps = new PrintStream(fos);
 
         CParser parser = new CParser(lex, ps);
@@ -87,17 +88,29 @@ public class Main {
         fos.close();
 
         //read from filename.ir and print to standard out
-        fis = new FileInputStream(new File(args[1] + ".ir"));
-        
-        fos = new FileOutputStream(new File(args[1] + ".asm"));
+        fis = new FileInputStream(new File(args[1] + "." + compilerType + ".ir"));
+
+        fos = new FileOutputStream(new File(args[1] + "." + compilerType + ".asm"));
         ps = new PrintStream(fos);
         codeGenerator.generateCode(fis, ps);
 
         ps.close();
         fos.close();
         fis.close();
-        
+
+        fis = new FileInputStream(new File(args[2]));
+        Map<String, Integer> cpiMap = new CpiReader().readCpi(fis);
+        fis.close();
+
         //generate stats
-        
+        fis = new FileInputStream(new File(args[1] + "." + compilerType + ".asm"));
+        AsmStats stats = new AsmStatisticsGenerator().generateStats(fis, cpiMap);
+        fis.close();
+
+        System.out.println("\n============================================");
+        System.out.println("Compile Summary");
+        System.out.println("============================================");
+        System.out.println("Generated code is located at " + args[1] + "." + compilerType + ".asm");
+        System.out.println(stats.toString());
     }
 }
