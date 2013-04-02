@@ -73,16 +73,20 @@ The rules are as follows :
 
 ###Language Grammar
 
-         program -> block
+         program -> declerations functions
+        function -> 'void' ID '(' ')' block
+       functions -> function functions
            block -> '{' declerations statements '}'
     declerations -> decleration declerations
      decleration -> type ID
+                  | 'void' ID '(' ')' ';'
             type -> type '[' NUM ']' | BASIC
       statements -> statement statements
        statement -> assignment '=' bool ';'
                   | IF '(' bool ')' statement
                   | IF '(' bool ')' statement ELSE statement
                   | WHILE '(' bool ')' statement
+                  | ID '(' ')' ';'
                   | block 
       assignment -> assignment '[' bool ']'
                   | ID

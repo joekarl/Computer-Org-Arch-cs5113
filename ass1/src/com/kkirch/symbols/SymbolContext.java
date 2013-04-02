@@ -6,6 +6,7 @@ package com.kkirch.symbols;
 
 import com.kkirch.ir.Id;
 import com.kkirch.lexer.Token;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public class SymbolContext {
     }
 
     public void put(Token t, Id i) {
+        //System.out.println("Putting token: " + t + " id: " + i + " offset: " + i.offsetAddress);
         symbolTable.put(t, i);
     }
 
@@ -37,6 +39,25 @@ public class SymbolContext {
                 break;
             }
         }
+//        if (foundId != null) {
+//            System.out.println("Getting token: " + t + " found: " + foundId + " offset: " + foundId.offsetAddress);
+//        } else {
+//            System.out.println("Getting token: " + t + " found: " + foundId);
+//        }
         return foundId;
+    }
+
+    public void dumpContext(PrintStream outStream) {
+        SymbolContext currentContext = this;
+        outStream.println("================================");
+        outStream.println("Current Context Dump");
+        outStream.println("================================");
+        while (currentContext != null) {
+            for (Map.Entry<Token, Id> entry : currentContext.symbolTable.entrySet()) {
+                outStream.println("token: " + entry.getKey() + " id: " + entry.getValue());
+            }
+            currentContext = currentContext.parentContext;
+        }
+        outStream.flush();
     }
 }

@@ -23,7 +23,8 @@ public class Type extends Word {
     public static final Type INT = new Type("int", Tag.BASIC, 4),
             FLOAT = new Type("float", Tag.BASIC, 8),
             CHAR = new Type("char", Tag.BASIC, 1),
-            BOOL = new Type("bool", Tag.BASIC, 1);
+            BOOL = new Type("bool", Tag.BASIC, 1),
+            VOID = new Type("void", Tag.BASIC, 1);
 
     public static boolean numeric(Type t) {
         return (t == Type.CHAR || t == Type.INT || t == Type.FLOAT);

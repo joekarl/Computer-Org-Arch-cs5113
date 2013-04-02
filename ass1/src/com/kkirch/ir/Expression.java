@@ -40,7 +40,7 @@ public class Expression extends Node {
     public Expression reduce() {
         return this;
     }
-
+    
     /*
      * Do jump
      */

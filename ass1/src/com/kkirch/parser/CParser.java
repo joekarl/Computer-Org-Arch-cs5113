@@ -11,6 +11,8 @@ import com.kkirch.ir.ArrayAssignmentStatement;
 import com.kkirch.ir.AssignmentStatement;
 import com.kkirch.ir.Constant;
 import com.kkirch.ir.Expression;
+import com.kkirch.ir.Function;
+import com.kkirch.ir.FunctionDeclerations;
 import com.kkirch.ir.Id;
 import com.kkirch.ir.IfElseStatement;
 import com.kkirch.ir.IfStatement;
@@ -40,14 +42,55 @@ public class CParser extends Parser {
 
     //block
     public void program() throws IOException {
-        Statement s = block();
+        currentContext = new SymbolContext(null);
+        declerations();
+        Statement s = functions();
         int begin = s.newLabel();
         int after = s.newLabel();
+        
         if (s != Statement.NULL) {
             s.emitLabel(begin);
             s.generate(begin, after);
             s.emitLabel(after);
         }
+    }
+
+    //function functions
+    public Statement functions() throws IOException {
+        if (lookahead.tag != Tag.VOID) {
+            return Statement.NULL;
+        } else {
+            return new FunctionDeclerations(function(), functions(),
+                    lexer.getCurrentLine(), outStream);
+        }
+    }
+
+    //'void' ID '(' ')' block
+    public Statement function() throws IOException {
+        match(Tag.VOID);
+        Token token = lookahead;
+        match(Tag.ID);
+        Id id = currentContext.get(token);
+        if (id == null) {
+            Word tokenWord = (Word) token;
+            id = new Id(declaredMemoryUsage, tokenWord, Type.VOID,
+                    lexer.getCurrentLine(), outStream);
+            currentContext.put(tokenWord, id);
+            declaredMemoryUsage += Type.VOID.getSize();
+        } else if (id.offsetAddress != declaredMemoryUsage) {
+            //ie this function has been declared before here
+            //or ie this has been re-declared
+            currentContext.dumpContext(System.err);
+            throwError("Illegal re-decleration of the function "
+                    + token.toString(), lexer.getCurrentLine());
+        }
+        match('(');
+        match(')');
+        SymbolContext savedContext = currentContext;
+        currentContext = new SymbolContext(savedContext);
+        Statement s = block();
+        currentContext = savedContext;
+        return new Function(id, s, lexer.getCurrentLine(), outStream);
     }
 
     //'{' declerations statements '}'
@@ -64,6 +107,7 @@ public class CParser extends Parser {
 
     public void declerations() throws IOException {
         while (lookahead.tag == Tag.BASIC) {
+            //regular def
             Type t = type();
             Token token = lookahead;
             match(Tag.ID);
@@ -107,7 +151,7 @@ public class CParser extends Parser {
 
     public Statement statement() throws IOException {
         Expression e;
-        Statement statement, s1, s2, cachedStatement;
+        Statement s1, s2;
         switch (lookahead.tag) {
             case ';':
                 readNextToken();
@@ -144,11 +188,12 @@ public class CParser extends Parser {
     }
 
     public Statement assignment() throws IOException {
-        Statement s;
+        Statement s = null;
         Token t = lookahead;
         match(Tag.ID);
         Id id = currentContext.get(t);
         if (id == null) {
+            currentContext.dumpContext(System.err);
             throwError("Illegal usage of undeclared variable "
                     + t.toString(), lexer.getCurrentLine());
         }
@@ -157,11 +202,14 @@ public class CParser extends Parser {
             readNextToken();
             s = new AssignmentStatement(id, bool(),
                     lexer.getCurrentLine(), outStream);
-        } else {
+        } else if (lookahead.tag == '[') {
             ArrayAccess arrayAccess = offset(id);
             match('=');
             s = new ArrayAssignmentStatement(arrayAccess, bool(),
                     lexer.getCurrentLine(), outStream);
+        } else {
+            //function call, 
+            throw new UnsupportedOperationException("Not implemented yet");
         }
         match(';');
         return s;
@@ -288,6 +336,7 @@ public class CParser extends Parser {
                 String idString = lookahead.toString();
                 Id id = currentContext.get(lookahead);
                 if (id == null) {
+                    currentContext.dumpContext(System.err);
                     throwError("Illegal use of undeclared variable "
                             + idString, lexer.getCurrentLine());
                 }
@@ -303,7 +352,7 @@ public class CParser extends Parser {
         }
     }
 
-    ArrayAccess offset(Id arrayId) throws IOException {
+    public ArrayAccess offset(Id arrayId) throws IOException {
         Expression booleanExpression,
                 arrayTypeWidth,
                 arrayLocation;

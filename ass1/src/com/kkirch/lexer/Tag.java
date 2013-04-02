@@ -31,5 +31,6 @@ public class Tag {
             ELSE = 272,
             IF = 273,
             NUM = 274,
-            WHILE = 275;
+            WHILE = 275,
+            VOID = 276;
 }

@@ -45,13 +45,14 @@ public class Main {
                 invalidArgs();
             }
         } else {
+            CompilerType compilerType;
             try {
-                CompilerType compilerType = CompilerType.valueOf(args[0]);
-                compile(compilerType, args);
+                compilerType = CompilerType.valueOf(args[0]);
             } catch (Exception e) {
                 invalidArgs();
                 throw new RuntimeException(e);
             }
+            compile(compilerType, args);
         }
 
     }
@@ -66,23 +67,37 @@ public class Main {
             codeGenerator = new AccumulatorCodeGenerator();
         } else if (compilerType == CompilerType.STACK) {
             codeGenerator = new StackCodeGenerator();
+        } else {
+            invalidArgs();
+            throw new RuntimeException("Invalid compiler selected");
         }
 
         //write ir to filename.ir
         FileInputStream fis = new FileInputStream(new File(args[1]));
         FileOutputStream fos = new FileOutputStream(new File(args[1] + ".ir"));
         Lexer lex = new Lexer(fis);
+        
+        PrintStream ps = new PrintStream(fos);
 
-        CParser parser = new CParser(lex, new PrintStream(fos));
+        CParser parser = new CParser(lex, ps);
         parser.program();
 
+        ps.close();
         fis.close();
         fos.close();
 
         //read from filename.ir and print to standard out
         fis = new FileInputStream(new File(args[1] + ".ir"));
-        codeGenerator.generateCode(fis, System.out);
+        
+        fos = new FileOutputStream(new File(args[1] + ".asm"));
+        ps = new PrintStream(fos);
+        codeGenerator.generateCode(fis, ps);
 
+        ps.close();
+        fos.close();
         fis.close();
+        
+        //generate stats
+        
     }
 }

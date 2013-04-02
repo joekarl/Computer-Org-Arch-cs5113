@@ -28,6 +28,7 @@ public class Lexer {
         reserveWord(new Word("while", Tag.WHILE));
         reserveWord(Word.True);
         reserveWord(Word.False);
+        reserveWord(Word.Void);
         reserveWord(Type.INT);
         reserveWord(Type.FLOAT);
         reserveWord(Type.CHAR);

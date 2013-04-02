@@ -14,7 +14,7 @@ import java.io.PrintStream;
  */
 public class Id extends Expression {
 
-    private final int offsetAddress;
+    public final int offsetAddress;
 
     public Id(int offsetAddress, Word id, Type type, 
             int lineNumber, PrintStream outStream) {
