@@ -1,0 +1,81 @@
+L1:	GOTO L4
+L3:	GOTO L2
+L4:	PUSH #0
+	POP i
+L5:	BLE i, #15, L6
+L7:	CLEAR
+	PUSH y
+	PUSH y
+	MULT
+	POP x
+L8:	PUSH i
+	PUSH #400
+	MULT
+	POP t1
+	PUSH x
+	PUSH #4
+	MULT
+	POP t2
+	CLEAR
+	PUSH t1
+	PUSH t2
+	ADD
+	POP t3
+	PUSH y
+	POP a(t3)
+L9:	PUSH x
+	POP y
+L10:	PUSH i
+	POP y
+L11:	PUSH i
+	POP x
+L12:	PUSH i
+	POP k
+L13:	PUSH i
+	POP z
+L14:	PUSH i
+	PUSH #1
+	ADD
+	POP i
+	GOTO L5
+L6:	PUSH #0
+	POP i
+L15:	BLE i, #45, L3
+L16:	PUSH #7
+	PUSH y
+	MULT
+	POP x
+L17:	PUSH x
+	POP y
+L18:	PUSH i
+	POP y
+L19:	PUSH i
+	POP x
+L20:	PUSH x
+	POP k
+L21:	PUSH y
+	PUSH #57
+	MULT
+	POP z
+L22:	PUSH k
+	PUSH #400
+	MULT
+	POP t4
+	PUSH z
+	PUSH #4
+	MULT
+	POP t5
+	CLEAR
+	PUSH t4
+	PUSH t5
+	ADD
+	POP t6
+	PUSH y
+	POP a(t6)
+L23:	PUSH i
+	PUSH #1
+	ADD
+	POP i
+	GOTO L15
+	GOTO L3
+L2:	

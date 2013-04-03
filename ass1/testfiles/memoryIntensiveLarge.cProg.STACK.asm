@@ -1,0 +1,644 @@
+L1:	GOTO L4
+L3:	GOTO L2
+L4:	CLEAR
+	PUSH c
+	PUSH c
+	ADD
+	POP c
+L5:	CLEAR
+	PUSH a
+	PUSH b
+	ADD
+	POP t1
+	CLEAR
+	PUSH t1
+	PUSH c
+	ADD
+	POP t2
+	CLEAR
+	PUSH t2
+	PUSH b
+	SUB
+	POP t3
+	CLEAR
+	PUSH t3
+	PUSH a
+	SUB
+	POP c
+L6:	PUSH b
+	POP a
+L7:	PUSH a
+	POP b
+L8:	PUSH b
+	POP a
+L9:	PUSH #1
+	PUSH 4
+	MULT
+	POP t4
+	PUSH a
+	POP x(t4)
+L10:	PUSH #1
+	PUSH 4
+	MULT
+	POP t5
+	PUSH b
+	POP y(t5)
+L11:	PUSH a
+	PUSH #4
+	MULT
+	POP t6
+	PUSH a
+	PUSH #4
+	MULT
+	POP t7
+	PUSH x(t7)
+	POP t8
+	PUSH b
+	PUSH #4
+	MULT
+	POP t9
+	PUSH y(t9)
+	POP t10
+	CLEAR
+	PUSH t8
+	PUSH t10
+	ADD
+	POP t11
+	PUSH t11
+	POP z(t6)
+L12:	PUSH a
+	POP b
+L13:	PUSH b
+	POP a
+L14:	PUSH a
+	POP b
+L15:	PUSH b
+	POP a
+L16:	PUSH a
+	POP b
+L17:	PUSH b
+	POP a
+L18:	PUSH a
+	POP b
+L19:	PUSH a
+	PUSH #4
+	MULT
+	POP t12
+	PUSH a
+	POP x(t12)
+L20:	PUSH b
+	PUSH #4
+	MULT
+	POP t13
+	PUSH b
+	POP y(t13)
+L21:	PUSH a
+	PUSH #4
+	MULT
+	POP t14
+	PUSH a
+	PUSH #4
+	MULT
+	POP t15
+	PUSH x(t15)
+	POP t16
+	PUSH b
+	PUSH #4
+	MULT
+	POP t17
+	PUSH y(t17)
+	POP t18
+	CLEAR
+	PUSH t16
+	PUSH t18
+	ADD
+	POP t19
+	PUSH t19
+	POP z(t14)
+L22:	PUSH b
+	POP a
+L23:	PUSH a
+	POP b
+L24:	PUSH b
+	POP a
+L25:	PUSH a
+	POP b
+L26:	PUSH b
+	POP a
+L27:	PUSH a
+	POP b
+L28:	PUSH b
+	POP a
+L29:	PUSH a
+	POP b
+L30:	PUSH b
+	POP a
+L31:	PUSH a
+	POP b
+L32:	PUSH b
+	POP a
+L33:	PUSH a
+	POP b
+L34:	PUSH b
+	POP a
+L35:	PUSH a
+	POP b
+L36:	PUSH b
+	POP a
+L37:	PUSH a
+	POP b
+L38:	PUSH b
+	POP a
+L39:	PUSH a
+	PUSH #4
+	MULT
+	POP t20
+	PUSH a
+	POP x(t20)
+L40:	PUSH b
+	PUSH #4
+	MULT
+	POP t21
+	PUSH b
+	POP y(t21)
+L41:	PUSH a
+	PUSH #4
+	MULT
+	POP t22
+	PUSH a
+	PUSH #4
+	MULT
+	POP t23
+	PUSH x(t23)
+	POP t24
+	PUSH b
+	PUSH #4
+	MULT
+	POP t25
+	PUSH y(t25)
+	POP t26
+	CLEAR
+	PUSH t24
+	PUSH t26
+	ADD
+	POP t27
+	PUSH t27
+	POP z(t22)
+L42:	PUSH a
+	POP b
+L43:	PUSH b
+	POP a
+L44:	PUSH a
+	POP b
+L45:	PUSH b
+	POP a
+L46:	PUSH a
+	POP b
+L47:	PUSH b
+	POP a
+L48:	PUSH a
+	POP b
+L49:	PUSH a
+	PUSH #4
+	MULT
+	POP t28
+	PUSH a
+	POP x(t28)
+L50:	PUSH b
+	PUSH #4
+	MULT
+	POP t29
+	PUSH b
+	POP y(t29)
+L51:	PUSH a
+	PUSH #4
+	MULT
+	POP t30
+	PUSH a
+	PUSH #4
+	MULT
+	POP t31
+	PUSH x(t31)
+	POP t32
+	PUSH b
+	PUSH #4
+	MULT
+	POP t33
+	PUSH y(t33)
+	POP t34
+	CLEAR
+	PUSH t32
+	PUSH t34
+	ADD
+	POP t35
+	PUSH t35
+	POP z(t30)
+L52:	PUSH b
+	POP a
+L53:	PUSH a
+	POP b
+L54:	PUSH b
+	POP a
+L55:	PUSH a
+	POP b
+L56:	PUSH b
+	POP a
+L57:	PUSH a
+	POP b
+L58:	PUSH b
+	POP a
+L59:	PUSH a
+	POP b
+L60:	PUSH b
+	POP a
+L61:	PUSH a
+	POP b
+L62:	PUSH b
+	POP a
+L63:	PUSH a
+	PUSH #4
+	MULT
+	POP t36
+	PUSH a
+	POP x(t36)
+L64:	PUSH b
+	PUSH #4
+	MULT
+	POP t37
+	PUSH b
+	POP y(t37)
+L65:	PUSH a
+	PUSH #4
+	MULT
+	POP t38
+	PUSH a
+	PUSH #4
+	MULT
+	POP t39
+	PUSH x(t39)
+	POP t40
+	PUSH b
+	PUSH #4
+	MULT
+	POP t41
+	PUSH y(t41)
+	POP t42
+	CLEAR
+	PUSH t40
+	PUSH t42
+	ADD
+	POP t43
+	PUSH t43
+	POP z(t38)
+L66:	PUSH a
+	POP b
+L67:	PUSH b
+	POP a
+L68:	PUSH a
+	POP b
+L69:	PUSH a
+	PUSH #4
+	MULT
+	POP t44
+	PUSH a
+	POP x(t44)
+L70:	PUSH b
+	PUSH #4
+	MULT
+	POP t45
+	PUSH b
+	POP y(t45)
+L71:	PUSH a
+	PUSH #4
+	MULT
+	POP t46
+	PUSH a
+	PUSH #4
+	MULT
+	POP t47
+	PUSH x(t47)
+	POP t48
+	PUSH b
+	PUSH #4
+	MULT
+	POP t49
+	PUSH y(t49)
+	POP t50
+	CLEAR
+	PUSH t48
+	PUSH t50
+	ADD
+	POP t51
+	PUSH t51
+	POP z(t46)
+L72:	PUSH b
+	POP a
+L73:	PUSH a
+	POP b
+L74:	PUSH b
+	POP a
+L75:	PUSH a
+	POP b
+L76:	PUSH b
+	POP a
+L77:	PUSH a
+	PUSH #4
+	MULT
+	POP t52
+	PUSH a
+	POP x(t52)
+L78:	PUSH b
+	PUSH #4
+	MULT
+	POP t53
+	PUSH b
+	POP y(t53)
+L79:	PUSH a
+	PUSH #4
+	MULT
+	POP t54
+	PUSH a
+	PUSH #4
+	MULT
+	POP t55
+	PUSH x(t55)
+	POP t56
+	PUSH b
+	PUSH #4
+	MULT
+	POP t57
+	PUSH y(t57)
+	POP t58
+	CLEAR
+	PUSH t56
+	PUSH t58
+	ADD
+	POP t59
+	PUSH t59
+	POP z(t54)
+L80:	PUSH a
+	POP b
+L81:	PUSH b
+	POP a
+L82:	PUSH a
+	POP b
+L83:	PUSH b
+	POP a
+L84:	PUSH a
+	POP b
+L85:	PUSH b
+	POP a
+L86:	PUSH a
+	POP b
+L87:	PUSH b
+	POP a
+L88:	PUSH a
+	POP b
+L89:	PUSH b
+	POP a
+L90:	PUSH a
+	POP b
+L91:	PUSH b
+	POP a
+L92:	PUSH a
+	POP b
+L93:	PUSH a
+	PUSH #4
+	MULT
+	POP t60
+	PUSH a
+	POP x(t60)
+L94:	PUSH b
+	PUSH #4
+	MULT
+	POP t61
+	PUSH b
+	POP y(t61)
+L95:	PUSH a
+	PUSH #4
+	MULT
+	POP t62
+	PUSH a
+	PUSH #4
+	MULT
+	POP t63
+	PUSH x(t63)
+	POP t64
+	PUSH b
+	PUSH #4
+	MULT
+	POP t65
+	PUSH y(t65)
+	POP t66
+	CLEAR
+	PUSH t64
+	PUSH t66
+	ADD
+	POP t67
+	PUSH t67
+	POP z(t62)
+L96:	PUSH b
+	POP a
+L97:	PUSH a
+	POP b
+L98:	PUSH b
+	POP a
+L99:	PUSH a
+	POP b
+L100:	PUSH b
+	POP a
+L101:	PUSH a
+	POP b
+L102:	PUSH a
+	PUSH #4
+	MULT
+	POP t68
+	PUSH a
+	POP x(t68)
+L103:	PUSH b
+	PUSH #4
+	MULT
+	POP t69
+	PUSH b
+	POP y(t69)
+L104:	PUSH a
+	PUSH #4
+	MULT
+	POP t70
+	PUSH a
+	PUSH #4
+	MULT
+	POP t71
+	PUSH x(t71)
+	POP t72
+	PUSH b
+	PUSH #4
+	MULT
+	POP t73
+	PUSH y(t73)
+	POP t74
+	CLEAR
+	PUSH t72
+	PUSH t74
+	ADD
+	POP t75
+	PUSH t75
+	POP z(t70)
+L105:	PUSH b
+	POP a
+L106:	PUSH a
+	POP b
+L107:	PUSH b
+	POP a
+L108:	PUSH a
+	PUSH #4
+	MULT
+	POP t76
+	PUSH a
+	POP x(t76)
+L109:	PUSH a
+	PUSH #4
+	MULT
+	POP t77
+	PUSH a
+	POP x(t77)
+L110:	PUSH b
+	PUSH #4
+	MULT
+	POP t78
+	PUSH b
+	POP y(t78)
+L111:	PUSH a
+	PUSH #4
+	MULT
+	POP t79
+	PUSH a
+	PUSH #4
+	MULT
+	POP t80
+	PUSH x(t80)
+	POP t81
+	PUSH b
+	PUSH #4
+	MULT
+	POP t82
+	PUSH y(t82)
+	POP t83
+	CLEAR
+	PUSH t81
+	PUSH t83
+	ADD
+	POP t84
+	PUSH t84
+	POP z(t79)
+L112:	PUSH b
+	PUSH #4
+	MULT
+	POP t85
+	PUSH b
+	POP y(t85)
+L113:	PUSH a
+	PUSH #4
+	MULT
+	POP t86
+	PUSH a
+	PUSH #4
+	MULT
+	POP t87
+	PUSH x(t87)
+	POP t88
+	PUSH b
+	PUSH #4
+	MULT
+	POP t89
+	PUSH y(t89)
+	POP t90
+	CLEAR
+	PUSH t88
+	PUSH t90
+	ADD
+	POP t91
+	PUSH t91
+	POP z(t86)
+L114:	PUSH a
+	POP b
+L115:	PUSH a
+	PUSH #4
+	MULT
+	POP t92
+	PUSH a
+	POP x(t92)
+L116:	PUSH b
+	PUSH #4
+	MULT
+	POP t93
+	PUSH b
+	POP y(t93)
+L117:	PUSH a
+	PUSH #4
+	MULT
+	POP t94
+	PUSH a
+	PUSH #4
+	MULT
+	POP t95
+	PUSH x(t95)
+	POP t96
+	PUSH b
+	PUSH #4
+	MULT
+	POP t97
+	PUSH y(t97)
+	POP t98
+	CLEAR
+	PUSH t96
+	PUSH t98
+	ADD
+	POP t99
+	PUSH t99
+	POP z(t94)
+L118:	PUSH b
+	POP a
+L119:	PUSH a
+	POP b
+L120:	PUSH b
+	POP a
+L121:	PUSH a
+	PUSH #4
+	MULT
+	POP t100
+	PUSH a
+	POP x(t100)
+L122:	PUSH b
+	PUSH #4
+	MULT
+	POP t101
+	PUSH b
+	POP y(t101)
+L123:	PUSH a
+	PUSH #4
+	MULT
+	POP t102
+	PUSH a
+	PUSH #4
+	MULT
+	POP t103
+	PUSH x(t103)
+	POP t104
+	PUSH b
+	PUSH #4
+	MULT
+	POP t105
+	PUSH y(t105)
+	POP t106
+	CLEAR
+	PUSH t104
+	PUSH t106
+	ADD
+	POP t107
+	PUSH t107
+	POP z(t102)
+L124:	PUSH a
+	POP b
+	GOTO L3
+L2:	

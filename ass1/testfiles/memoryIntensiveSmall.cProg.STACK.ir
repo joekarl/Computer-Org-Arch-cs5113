@@ -1,0 +1,32 @@
+L1:	goto L4
+L3:	goto L2
+L4:	i = 0
+L5:	iffalse i <= 15 goto L6
+L7:	x = y * y
+L8:	t1 = i * 400
+	t2 = x * 4
+	t3 = t1 + t2
+	a [ t3 ] = y
+L9:	y = x
+L10:	y = i
+L11:	x = i
+L12:	k = i
+L13:	z = i
+L14:	i = i + 1
+	goto L5
+L6:	i = 0
+L15:	iffalse i <= 45 goto L3
+L16:	x = 7 * y
+L17:	y = x
+L18:	y = i
+L19:	x = i
+L20:	k = x
+L21:	z = y * 57
+L22:	t4 = k * 400
+	t5 = z * 4
+	t6 = t4 + t5
+	a [ t6 ] = y
+L23:	i = i + 1
+	goto L15
+	goto L3
+L2:

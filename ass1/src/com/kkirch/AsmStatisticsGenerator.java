@@ -61,7 +61,8 @@ public class AsmStatisticsGenerator {
         }
 
         stats.memoryAccessInBytes = stats.memoryAccessCount * 4;
-        stats.totalCPI = accumulatedCost / stats.instructionCount;
+        stats.totalCost = accumulatedCost;
+        stats.averageCpi = stats.totalCost / stats.instructionCount;
         stats.totalMemoryBandwithInBytes = stats.memoryAccessInBytes + stats.codeSizeInBytes;
 
         br.close();
@@ -73,6 +74,7 @@ public class AsmStatisticsGenerator {
     //and isn't a clear operator
     private boolean isMemoryAccess(String operator, String operand) {
         return !"CLEAR".equals(operator)
-                && !operand.startsWith("R");
+                && !operand.startsWith("R") 
+                && !operand.startsWith("#");
     }
 }

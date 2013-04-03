@@ -1,0 +1,89 @@
+L1:	GOTO L4
+L3:	GOTO L2
+L4:	ADD c, c, c
+L5:	ADD t1, a, b
+	ADD t2, t1, c
+	SUB t3, t2, b
+	SUB c, t3, a
+L6:	STORE a, b
+L7:	STORE b, a
+L8:	STORE a, b
+L9:	STORE b, a
+L10:	STORE a, b
+L11:	STORE b, a
+L12:	STORE a, b
+L13:	STORE b, a
+L14:	STORE a, b
+L15:	STORE b, a
+L16:	STORE a, b
+L17:	STORE b, a
+L18:	STORE a, b
+L19:	STORE b, a
+L20:	STORE a, b
+L21:	STORE b, a
+L22:	STORE a, b
+L23:	STORE b, a
+L24:	STORE a, b
+L25:	STORE b, a
+L26:	STORE a, b
+L27:	STORE b, a
+L28:	STORE a, b
+L29:	STORE b, a
+L30:	STORE a, b
+L31:	STORE b, a
+L32:	STORE a, b
+L33:	STORE b, a
+L34:	STORE a, b
+L35:	STORE b, a
+L36:	STORE a, b
+L37:	STORE b, a
+L38:	STORE a, b
+L39:	STORE b, a
+L40:	STORE a, b
+L41:	STORE b, a
+L42:	STORE a, b
+L43:	STORE b, a
+L44:	STORE a, b
+L45:	STORE b, a
+L46:	STORE a, b
+L47:	STORE b, a
+L48:	STORE a, b
+L49:	STORE b, a
+L50:	STORE a, b
+L51:	STORE b, a
+L52:	STORE a, b
+L53:	STORE b, a
+L54:	STORE a, b
+L55:	STORE b, a
+L56:	STORE a, b
+L57:	STORE b, a
+L58:	STORE a, b
+L59:	STORE b, a
+L60:	STORE a, b
+L61:	STORE b, a
+L62:	STORE a, b
+L63:	STORE b, a
+L64:	STORE a, b
+L65:	STORE b, a
+L66:	STORE a, b
+L67:	STORE b, a
+L68:	STORE a, b
+L69:	STORE b, a
+L70:	STORE a, b
+L71:	STORE b, a
+L72:	STORE a, b
+L73:	STORE b, a
+L74:	STORE a, b
+L75:	STORE b, a
+L76:	STORE a, b
+L77:	STORE b, a
+L78:	STORE a, b
+L79:	STORE b, a
+L80:	STORE a, b
+L81:	STORE b, a
+L82:	STORE a, b
+L83:	STORE b, a
+L84:	STORE a, b
+L85:	STORE b, a
+	GOTO L3
+L2:	

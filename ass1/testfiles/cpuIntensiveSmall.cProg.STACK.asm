@@ -1,0 +1,29 @@
+L1:	GOTO L4
+L3:	GOTO L2
+L4:	PUSH #0
+	POP i
+L5:	BLE i, #15, L6
+L7:	CLEAR
+	PUSH y
+	PUSH y
+	MULT
+	POP x
+L8:	PUSH i
+	PUSH #1
+	ADD
+	POP i
+	GOTO L5
+L6:	PUSH #0
+	POP i
+L9:	BLE i, #45, L3
+L10:	PUSH #7
+	PUSH y
+	MULT
+	POP x
+L11:	PUSH i
+	PUSH #1
+	ADD
+	POP i
+	GOTO L9
+	GOTO L3
+L2:	

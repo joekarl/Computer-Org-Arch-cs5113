@@ -1,0 +1,140 @@
+L1:	goto L4
+L3:	goto L2
+L4:	i = 0
+L5:	iffalse i <= 15 goto L6
+L7:	x = y * y
+L8:	i = i + 1
+	goto L5
+L6:	i = 0
+L9:	iffalse i <= 45 goto L10
+L11:	x = 7 * y
+L12:	i = i + 1
+L13:	t1 = i * 8
+	t2 = x + y
+	t3 = i * f
+	t4 = t2 - t3
+	fArray [ t1 ] = t4
+	goto L9
+L10:	iffalse x <= 15 goto L16
+L15:	x = y * y
+L17:	i = i + 1
+	goto L14
+L16:	t5 = 5 * 60
+	t6 = 50 + t5
+	t7 = t6 - 94
+	t8 = x + y
+	t9 = t8 - i
+	t10 = 0.560000 - 8
+	t11 = t9 * t10
+	f = t7 / t11
+L18:	i = i + 1
+L14:	iffalse i <= 15 goto L19
+L20:	x = y * y
+L21:	i = i + 1
+	goto L14
+L19:	i = 0
+L22:	iffalse i <= 45 goto L23
+L24:	x = 7 * y
+L25:	i = i + 1
+L26:	t12 = i * 8
+	t13 = x + y
+	t14 = i * f
+	t15 = t13 - t14
+	fArray [ t12 ] = t15
+	goto L22
+L23:	iffalse x <= 15 goto L29
+L28:	x = y * y
+L30:	i = i + 1
+	goto L27
+L29:	t16 = 5 * 60
+	t17 = 50 + t16
+	t18 = t17 - 94
+	t19 = x + y
+	t20 = t19 - i
+	t21 = 0.560000 - 8
+	t22 = t20 * t21
+	f = t18 / t22
+L31:	i = i + 1
+L27:	iffalse i <= 15 goto L32
+L33:	x = y * y
+L34:	i = i + 1
+	goto L27
+L32:	i = 0
+L35:	iffalse i <= 45 goto L36
+L37:	x = 7 * y
+L38:	i = i + 1
+L39:	t23 = i * 8
+	t24 = x + y
+	t25 = i * f
+	t26 = t24 - t25
+	fArray [ t23 ] = t26
+	goto L35
+L36:	iffalse x <= 15 goto L42
+L41:	x = y * y
+L43:	i = i + 1
+	goto L40
+L42:	t27 = 5 * 60
+	t28 = 50 + t27
+	t29 = t28 - 94
+	t30 = x + y
+	t31 = t30 - i
+	t32 = 0.560000 - 8
+	t33 = t31 * t32
+	f = t29 / t33
+L44:	i = i + 1
+L40:	iffalse i <= 15 goto L45
+L46:	x = y * y
+L47:	i = i + 1
+	goto L40
+L45:	i = 0
+L48:	iffalse i <= 45 goto L49
+L50:	x = 7 * y
+L51:	i = i + 1
+L52:	t34 = i * 8
+	t35 = x + y
+	t36 = i * f
+	t37 = t35 - t36
+	fArray [ t34 ] = t37
+	goto L48
+L49:	iffalse x <= 15 goto L55
+L54:	x = y * y
+L56:	i = i + 1
+	goto L53
+L55:	t38 = 5 * 60
+	t39 = 50 + t38
+	t40 = t39 - 94
+	t41 = x + y
+	t42 = t41 - i
+	t43 = 0.560000 - 8
+	t44 = t42 * t43
+	f = t40 / t44
+L57:	i = i + 1
+L53:	iffalse i <= 15 goto L58
+L59:	x = y * y
+L60:	i = i + 1
+	goto L53
+L58:	i = 0
+L61:	iffalse i <= 45 goto L62
+L63:	x = 7 * y
+L64:	i = i + 1
+L65:	t45 = i * 8
+	t46 = x + y
+	t47 = i * f
+	t48 = t46 - t47
+	fArray [ t45 ] = t48
+	goto L61
+L62:	iffalse x <= 15 goto L67
+L66:	x = y * y
+L68:	i = i + 1
+	goto L3
+L67:	t49 = 5 * 60
+	t50 = 50 + t49
+	t51 = t50 - 94
+	t52 = x + y
+	t53 = t52 - i
+	t54 = 0.560000 - 8
+	t55 = t53 * t54
+	f = t51 / t55
+L69:	i = i + 1
+	goto L3
+L2:

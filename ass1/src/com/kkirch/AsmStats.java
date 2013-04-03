@@ -15,7 +15,8 @@ public class AsmStats {
     public int memoryAccessCount;
     public int memoryAccessInBytes;
     public int totalMemoryBandwithInBytes;
-    public float totalCPI;
+    public float averageCpi;
+    public int totalCost;
 
     @Override
     public String toString() {
@@ -23,7 +24,8 @@ public class AsmStats {
                 + "\n\tinstructionCount : " + instructionCount
                 + ",\n\tcodeSizeInBytes : " + codeSizeInBytes
                 + ",\n\tmemoryAccessCount : " + memoryAccessCount
-                + ",\n\ttotalCPI : " + totalCPI
+                + ",\n\taverageCPI : " + averageCpi
+                + ",\n\ttotalCost : " + totalCost
                 + ",\n\tmemoryAccessInBytes : " + memoryAccessInBytes
                 + ",\n\ttotalMemoryBandwidth : " + totalMemoryBandwithInBytes
                 + "\n}";

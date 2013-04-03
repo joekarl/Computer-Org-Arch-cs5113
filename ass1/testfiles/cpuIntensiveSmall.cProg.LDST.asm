@@ -1,0 +1,24 @@
+L1:	GOTO L4
+L3:	GOTO L2
+L4:	STORE i, #0
+L5:	LOAD R0, i
+	BLE R0, #15, L6
+L7:	LOAD R0, y
+	LOAD R1, y
+	STORE x, R0
+L8:	LOAD R0, i
+	ADD R0, R0, #1
+	STORE i, R0
+	GOTO L5
+L6:	STORE i, #0
+L9:	LOAD R0, i
+	BLE R0, #45, L3
+L10:	LOAD R0, y
+	MULT R0, #7, R0
+	STORE x, R0
+L11:	LOAD R0, i
+	ADD R0, R0, #1
+	STORE i, R0
+	GOTO L9
+	GOTO L3
+L2:	
